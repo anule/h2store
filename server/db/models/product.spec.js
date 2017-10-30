@@ -29,6 +29,8 @@ describe('Product model', () => {
         expect(savedProduct.description).to.equal('Water sourced from tears of joy of long lost lovers');
         expect(savedProduct.price).to.equal('4.50');
         expect(savedProduct.image).to.equal('https://maxcdn.icons8.com/Share/icon/p1em/Industry//water1600.png');
+        expect(savedProduct.visibilityToggle).to.equal(true);
+        expect(savedProduct.numInStock).to.equal(0);
       })
 
       it('requires name', () => {
@@ -46,6 +48,16 @@ describe('Product model', () => {
         return savedProduct.validate()
                 .then(function(){
                   throw new Error('validation fails when description is null');
+                },
+              function(result){
+                expect(result).to.be.an.instanceOf(Error);
+              })
+      });
+      it('does not allow negative numInStock', () => {
+        savedProduct.numInStock = -4;
+        return savedProduct.validate()
+                .then(function(){
+                  throw new Error('validation fails when number in stock is negative');
                 },
               function(result){
                 expect(result).to.be.an.instanceOf(Error);
