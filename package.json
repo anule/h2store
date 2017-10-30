@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "h2store",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "a e-store that sells water",
   "engines": {
     "node": ">= 7.0.0"
   },
