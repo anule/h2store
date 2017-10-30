@@ -14,7 +14,7 @@ describe('Product routes', () => {
   describe('/api/products/', () => {
     const sampleProduct = {
       name: 'male tears',
-      price: '$10.00',
+      price: '10.00',
       description: ':( sad boys',
       image: '',
     };
