@@ -36,4 +36,38 @@ describe('Product routes', () => {
         });
     });
   }); // end describe('/api/products')
+
+  describe('/api/products/:id', () => {
+    const sampleProduct2 = {
+      name: 'holy water',
+      price: '2000.00',
+      description: 'blessed by the Pope at the Vatican',
+    };
+
+    const sampleProduct3 = {
+      name: 'salt water',
+      price: '0.00',
+      description: 'water with salt'
+    };
+
+    beforeEach(() => {
+      return Product.create(sampleProduct2)
+        .then(() => {
+          return Product.create(sampleProduct3);
+        });
+    });
+
+    it('GET /api/products/:id', () => {
+      return request(app)
+        .get('/api/products/2')
+        .expect(200)
+        .then(res => {
+          // console.log(res);
+          expect(res.body).to.be.an('object');
+          expect(res.body.name).to.be.equal(sampleProduct3.name);
+          expect(res.body.price).to.be.equal(sampleProduct3.price);
+          expect(res.body.description).to.be.equal(sampleProduct3.description);
+        });
+    });
+  });
 }); // end describe( Product routes')
