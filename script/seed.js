@@ -9,8 +9,27 @@
  *
  * Now that you've got the main idea, check it out in practice below!
  */
-const db = require('../server/db')
-const {User} = require('../server/db/models')
+const db = require('../db');
+const { User, Product, Category } = require('../db/models')
+
+const data = {
+  category: [
+    {
+      name: 'Tap Water',
+      description: 'Water that comes out of your faucet'
+    },
+    {
+      name: 'Spring Water',
+      description: 'Water from Middle Earth'
+    },
+    {
+      name:
+    }
+  ],
+  water: [
+    {}
+  ]
+}
 
 async function seed () {
   await db.sync({force: true})
