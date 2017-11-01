@@ -10,7 +10,7 @@ describe('Product model', () => {
   })
 
   describe('attributes', () => {
-    describe('', () => {
+    // describe('', () => {
       let savedProduct;
 
       beforeEach(() => {
@@ -62,6 +62,6 @@ describe('Product model', () => {
                 },
               )
       });
-    })
+    // })
   })
 });
