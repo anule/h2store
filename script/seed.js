@@ -9,8 +9,8 @@
  *
  * Now that you've got the main idea, check it out in practice below!
  */
-const db = require('../db');
-const { User, Product, Category } = require('../db/models')
+const db = require('../server/db');
+const { User, Product, Category } = require('../server/db/models')
 
 const data = {
   category: [
@@ -28,7 +28,7 @@ const data = {
     },
     {
       name: 'Tears',
-      description: 'Water that appears when the human soul feels sorrow'
+      description: 'Water that appears when the soul feels sorrow'
     },
     {
       name: 'Animal Water',
@@ -107,7 +107,84 @@ const data = {
       }
     },
     {
-
+      name: 'LaCroix',
+      description: 'Water that no one can pronounce',
+      price: '5.99',
+      image: 'https://pbs.twimg.com/profile_images/717073053054865409/55C6oypp.jpg',
+      category: {
+        name: 'Sparkling Water',
+        description: 'Water that wishes it was champagne'
+      }
+    },
+    {
+      name: 'Canada Dry',
+      description: 'Tonic Water',
+      price: '3.99',
+      image: 'https://www.dpsgproductfacts.com/product_images/CANADA_DRY_TONIC_WATER_8.png',
+      category: {
+        name: 'Sparkling Water',
+        description: 'Water that wishes it was champagne'
+      }
+    },
+    {
+      name: 'Bear Water',
+      description: 'water that bears shake off',
+      price: '50.00',
+      image: 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/wet-bear-steve-mckinzie.jpg',
+      category: {
+        name: 'Animal Water',
+        description: 'Leftover bath water from zoo animals'
+      }
+    },
+    {
+      name: 'Flamingo Water',
+      description: 'water that flamingo\'s prance around in',
+      price: '50.00',
+      image: 'http://www.bhmpics.com/walls/pink_flamingo_birds_in_water-wide.jpg',
+      category: {
+        name: 'Animal Water',
+        description: 'Leftover bath water from zoo animals'
+      }
+    },
+    {
+      name: 'Fountain of Youth',
+      description: 'Sold by the ounce',
+      price: '5000.00',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Lucas_Cranach_-_Der_Jungbrunnen_%28Gem%C3%A4ldegalerie_Berlin%29.jpg/407px-Lucas_Cranach_-_Der_Jungbrunnen_%28Gem%C3%A4ldegalerie_Berlin%29.jpg',
+      category: {
+        name: 'Luxury Water',
+        description: 'Water for the rich & famous'
+      }
+    },
+    {
+      name: 'Elixir of life',
+      description: 'will let you live many moons',
+      price: '5000000.00',
+      image: 'https://vignette.wikia.nocookie.net/harrypotter/images/8/84/Felix_Felicis_Phial_HBP.png/revision/latest?cb=20161125004911',
+      category: {
+        name: 'Luxury Water',
+        description: 'Water for the rich & famous'
+      }
+    },
+    {
+      name: 'Arctic Ice',
+      description: 'from the icy glaciers of the North Pole',
+      price: '150.00',
+      image: 'https://inhabitat.com/wp-content/blogs.dir/1/files/2012/01/Fresh-Water-Arctic-2.jpg',
+      category: {
+        name: 'Ocean Water',
+        description: 'Water from the sea'
+      }
+    },
+    {
+      name: 'Pacific Peace',
+      description: 'water from the big blue',
+      price: '100.00',
+      image: 'http://static.panoramio.com/photos/large/30914822.jpg',
+      category: {
+        name: 'Ocean Water',
+        description: 'Water from the sea'
+      }
     }
   ]
 };
@@ -118,15 +195,26 @@ async function seed() {
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
-  const users = await Promise.all([
-    User.create({ email: 'cody@email.com', password: '123' }),
-    User.create({ email: 'murphy@email.com', password: '123' })
-  ])
+  const categories = await Promise.all(data.category.map(category => {
+    return Category.create(category);
+  }))
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${categories.length} categories`)
+  console.log(`seeded successfully`)
+
+
+  const products = await Promise.all(data.product.map(product => {
+    return Product.create(product);
+  }))
+  // Wowzers! We can even `await` on the right-hand side of the assignment operator
+  // and store the result that the promise resolves to in a variable! This is nice!
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
+
+
+
 
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors
