@@ -17,19 +17,18 @@ const Product = db.define('product', {
   image: {
     type: Sequelize.STRING,
     defaultValue: 'https://maxcdn.icons8.com/Share/icon/p1em/Industry//water1600.png'
+  },
+  visibilityToggle: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
+  },
+  numInStock: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   }
-  // },
-  // visibilityToggle: {
-  //   type: Sequelize.BOOLEAN,
-  //   defaultValue: true
-  // },
-  // numInStock: {
-  //   type: Sequelize.INTEGER,
-  //   defaultValue: 0,
-  //   validate: {
-  //     min: 0
-  //   }
-  // }
 })
 
 module.exports = Product;

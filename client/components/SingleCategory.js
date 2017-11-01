@@ -13,6 +13,12 @@ class SingleCategory extends Component {
     this.props.getCategoryProducts(id);
   }
 
+  componentWillReceiveProps (newProps) {
+    if (newProps.match.params.id !== this.props.match.params.id){
+      this.props.getCategoryProducts(newProps.match.params.id)}
+
+  }
+
   render() {
     console.log(this.props.match.params.id)
     console.log(this.props.category)
