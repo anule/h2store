@@ -23,10 +23,16 @@ Category.hasMany(Product);
 Transaction.belongsTo(User);
 User.hasMany(Transaction);
 Transaction.belongsToMany(Product,
-  {through: {
-    model: TransactionsProducts
-  }}
+  {
+    through: {
+      model: TransactionsProducts
+    }
+  }
 );
+Review.belongsTo(User);
+Review.belongsTo(Product);
+User.hasMany(Review);
+Product.hasMany(Review);
 
 module.exports = {
   User, Product, Category
