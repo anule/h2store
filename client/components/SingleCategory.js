@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CategoriesPane from './CategoriesPane';
-import fetchSingleCategory from '../store/category';
+import { fetchSingleCategory } from '../store/category';
 
 class SingleCategory extends Component {
   constructor(props){
@@ -12,15 +12,18 @@ class SingleCategory extends Component {
     const { id } = this.props.match.params
     this.props.getCategoryProducts(id);
   }
+
   render() {
     console.log(this.props.match.params.id)
-    console.log(this.props)
+    console.log(this.props.category)
     return (
       <div>
         <CategoriesPane />
-        {/* {this.props.category.products.map(product => {
+        {this.props.category.selectedCategory.products
+        ? this.props.category.selectedCategory.products.map(product => {
           return <li key={product.id}>{product.name}</li>
-        })} */}
+        })
+        : null }
         <hr />
       </div>
     )

@@ -17,7 +17,7 @@ class CategoriesPane extends Component {
       <div className="left-pane">
       <ul>
         <li><Link to="/products">All Categories</Link></li>
-        {this.props.category.map(category => {
+        {this.props.category.allCategories.map(category => {
         return <li key={category.id}><Link to={`/categories/${category.id}`}>{category.name}</Link></li>
         })}
       </ul>

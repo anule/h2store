@@ -25,23 +25,21 @@ export const fetchCategories = () =>
       .catch(err => console.log(err))
 
 export const fetchSingleCategory = (id) =>
-  dispatch =>
-    axios.get(`api/categories/${id}/`)
-        .then(res => {console.log("data", res.data);
-        console.log(getOneCategory("hello"));
-          dispatch(getOneCategory(res.data))})
-        .catch(err => console.log(err));
+ dispatch =>
+    axios.get(`/api/categories/${id}/`)
+        .then(res => dispatch(getOneCategory(res.data)))
+        .catch(err => console.log(err))
 
 
 /**
  * REDUCER
  */
-export default function (state = [], action) {
+export default function (state = {selectedCategory: {}, allCategories: []}, action) {
   switch (action.type) {
     case GET_ALL_CATEGORIES:
-      return action.categories
+      return Object.assign({}, state, {allCategories: action.categories})
     case GET_ONE_CATEGORY:
-      return action.category
+      return Object.assign({}, state, {selectedCategory: action.category})
     case REMOVE_CATEGORY:
       return state
     default:
