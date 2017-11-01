@@ -10,6 +10,7 @@ class AllProducts extends Component {
     return (
       <div>
         <CategoriesPane />
+        <h1>Here is some content.</h1>
         <hr />
       </div>
 

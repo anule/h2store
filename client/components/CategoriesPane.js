@@ -14,12 +14,14 @@ class CategoriesPane extends Component {
 
   render(){
     return (
+      <div className="left-pane">
       <ul>
         <li><Link to="/products">All Categories</Link></li>
         {this.props.category.map(category => {
         return <li key={category.id}><Link to="/category/:id">{category.name}</Link></li>
         })}
       </ul>
+      </div>
     )
   }
 }
@@ -29,6 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
   getCategories: () => {
     dispatch(fetchCategories())
   }
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPane);
