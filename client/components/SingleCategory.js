@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CategoriesPane from './CategoriesPane';
 
-class AllProducts extends Component {
+class SingleCategory extends Component {
   constructor(props){
     super(props)
   }
@@ -19,4 +19,4 @@ class AllProducts extends Component {
 
 const mapState = null
 
-export default connect(mapState)(AllProducts)
+export default connect(mapState)(SingleCategory)
