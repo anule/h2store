@@ -1,16 +1,26 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CategoriesPane from './CategoriesPane';
+import { fetchProducts } from '../store/product';
 
 class AllProducts extends Component {
   constructor(props){
     super(props)
   }
+
+  componentDidMount(){
+    this.props.getProducts();
+  }
+
   render() {
     return (
       <div>
+        <ul className="products">
         <CategoriesPane />
-        <h1>Here is some content.</h1>
+        {this.props.product.map(product => {
+          return <li key={product.id}>{product.name}</li>
+        })}
+        </ul>
         <hr />
       </div>
 
@@ -18,6 +28,12 @@ class AllProducts extends Component {
   }
 }
 
-const mapState = null
+const mapStateToProps = ({ product }) => ({ product });
+const mapDispatchToProps = (dispatch) => ({
+  getProducts: () => {
+    dispatch(fetchProducts())
+  }
+});
 
-export default connect(mapState)(AllProducts)
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
+

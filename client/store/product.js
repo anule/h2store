@@ -22,15 +22,14 @@ export const fetchProducts = () =>
         dispatch(getAllProducts(res.data)))
       .catch(err => console.log(err))
 
-
 /**
  * REDUCER
  */
 export default function (state = [], action) {
   switch (action.type) {
-    case GET_ALL_CATEGORIES:
-      return action.categories
-    case REMOVE_CATEGORY:
+    case GET_ALL_PRODUCTS:
+      return action.products
+    case REMOVE_PRODUCT:
       return state
     default:
       return state
