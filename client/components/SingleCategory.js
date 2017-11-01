@@ -20,14 +20,19 @@ class SingleCategory extends Component {
   }
 
   render() {
-    console.log(this.props.match.params.id)
-    console.log(this.props.category)
+
+    const { selectedCategory } = this.props.category
     return (
       <div>
         <CategoriesPane />
-        {this.props.category.selectedCategory.products
-        ? this.props.category.selectedCategory.products.map(product => {
-          return <li key={product.id}>{product.name}</li>
+        {<div>
+         <h1>{selectedCategory.name}</h1>
+         <h2>{selectedCategory.description}</h2>
+        </div>
+        }
+        {selectedCategory.products
+        ? selectedCategory.products.map(product => {
+          return <li key={product.id}>{product.name} <br />Price:{product.price}<br />{product.description}</li>
         })
         : null }
         <hr />
