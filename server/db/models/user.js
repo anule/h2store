@@ -2,6 +2,9 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+// "Users" include those without passwords - maybe change name of isAuthUser?
+// Maybe add a separate addresses model so users can have multiple addresses
+
 const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING

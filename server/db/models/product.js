@@ -11,6 +11,7 @@ const Product = db.define('product', {
     type: Sequelize.TEXT,
     allowNull: false
   },
+  //Add allowNull: false validation
   price: {
     type: Sequelize.DECIMAL(12, 2)
   },
