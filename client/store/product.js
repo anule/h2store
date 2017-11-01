@@ -3,23 +3,23 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
-const REMOVE_CATEGORY = 'REMOVE_CATEGORY'
+const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
+const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
 /**
  * ACTION CREATORS
  */
-const getAllCategories = categories => ({type: GET_ALL_CATEGORIES, categories})
-const removeCategory = category => ({type: REMOVE_CATEGORY, category})
+const getAllProducts = products => ({type: GET_ALL_PRODUCTS, products})
+const removeProduct = product => ({type: REMOVE_PRODUCT, product})
 
 /**
  * THUNK CREATORS
  */
-export const fetchCategories = () =>
+export const fetchProducts = () =>
   dispatch =>
-    axios.get('/api/categories')
+    axios.get('/api/products')
       .then(res =>
-        dispatch(getAllCategories(res.data)))
+        dispatch(getAllProducts(res.data)))
       .catch(err => console.log(err))
 
 

@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchCategories } from '../store/category';
 
 class CategoriesPane extends Component {
   constructor(){
     super()
   }
 
+  componentDidMount(){
+    this.props.getCategories();
+  }
+
   render(){
     return (
       <ul>
         <li><Link to="/products">All Categories</Link></li>
-        {/* {this.props.categories.map(category => {
-        <li><Link to="/category/:id">{category.name}</Link></li>})} */}
+        {this.props.category.map(category => {
+        return <li key={category.id}><Link to="/category/:id">{category.name}</Link></li>
+        })}
       </ul>
     )
   }
-
 }
 
-const mapStateToProps = ({ categories }) => ({categories});
+const mapStateToProps = ({ category }) => ({ category });
+const mapDispatchToProps = (dispatch) => ({
+  getCategories: () => {
+    dispatch(fetchCategories())
+  }
+})
 
-export default connect(mapStateToProps)(CategoriesPane);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPane);
