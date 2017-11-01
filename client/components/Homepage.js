@@ -3,8 +3,8 @@ import BestSellers from './BestSellers'
 
 const Homepage = () => {
   return (
-    <div className='homepage-image'>
-      <img src='/h2StoreHomepage.jpeg' alt='Splash Image' />
+    <div className="homepage">
+      <img src="/h2StoreHomepage.jpeg" alt="Splash Image" />
       <p>Mission Statement: For each product purchased, we will donate 12oz
       of water to an orphan or a very thirsty bird.</p>
       <div>

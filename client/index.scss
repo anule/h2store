@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Calibre Light', sans-serif;
+  box-sizing: border-box;
 
   a {
     text-decoration: none;
@@ -11,11 +12,39 @@ body {
 
   nav a {
     display: inline-block;
-    margin: 1em;
+     margin: 1em;
   }
 
   form div {
     margin: 1em;
     display: inline-block;
   }
+
+  .nav-bar {
+    font-family: "Calibre Light";
+    font-weight: 200;
+    font-style: normal;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+
+  .homepage {
+    align-items: center;
+  }
+
+  .footer {
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .logo{
+    height: 2em;
+  }
 }
+
