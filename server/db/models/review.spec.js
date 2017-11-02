@@ -60,22 +60,8 @@ describe('Review model', () => {
         message: 'This water quenched my thirst!'
       })
 
-      // let currentDate = new Date();
-      // let dateYear = currentDate.getFullYear();
-      // let dateMonth = currentDate.getMonth() + 1;
-      // let day = function () {
-      //   console.log(currentDate);
-      //   if (currentDate.getDay().toString().length < 2) {
-      //     return '0' + currentDate.getDay();
-      //   } else {
-      //     return currentDate.getDay();
-      //   }
-      // }
-      // let dateDay = day();
-
       return anotherReview.save()
         .then(function (review) {
-          // expect(review.date).to.equal(dateYear + '-' + dateMonth + '-' + dateDay);
           expect(review.date).to.not.be.null;
 
         },
