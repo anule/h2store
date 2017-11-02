@@ -2,7 +2,7 @@ const User = require('./user')
 const Product = require('./product');
 const Category = require('./category');
 const Transaction = require('./transaction');
-const TransactionsProducts = require('./transaction-products');
+const TransactionsProducts = require('./transactions-products');
 const Review = require('./review')
 
 /**
