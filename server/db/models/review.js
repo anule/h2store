@@ -7,13 +7,13 @@ const Review = db.define('review', {
     defaultValue: 'My Review'
   },
   date: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW,
-    max: 5
+    type: Sequelize.DATEONLY,
+    defaultValue: Sequelize.NOW
   },
   stars: {
     type: Sequelize.DECIMAL(2, 1),
-    allowNull: false
+    allowNull: false,
+    max: 5
   },
   message: {
     type: Sequelize.TEXT
