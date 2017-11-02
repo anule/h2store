@@ -3,7 +3,7 @@ const { TransactionsProducts } = require('../db/models');
 module.exports = router;
 
 // All products
-router.post('/', (req, res, next) => {
+router.put('/', (req, res, next) => {
   return TransactionsProducts.destroy({
     where: {
       transactionId: req.body.transactionId,
