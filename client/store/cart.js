@@ -9,7 +9,7 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART'
 /**
  * ACTION CREATORS
  */
-const getCart = (products) => ({type: GET_CART, products})
+const getCart = products => ({type: GET_CART, products})
 const deleteFromCart = productId => ({type: DELETE_FROM_CART, productId})
 
 /**
@@ -32,7 +32,8 @@ export const fetchCart = () =>
 export const deleteItemFromCart = (productId, transactionId) =>
     dispatch =>
       axios.post('/api/transactions-products', { transactionId, productId})
-          .then(() => dispatch(deleteFromCart(productId)))
+          .then(() => {console.log('you got here');dispatch(deleteFromCart(productId))})
+          .catch(err => console.log(err));
 
 /**
  * REDUCER
