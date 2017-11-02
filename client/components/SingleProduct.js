@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchSingleProduct } from '../store/singleProduct'
+import { fetchSingleProduct } from '../store/product'
 import CategoriesPane from './CategoriesPane'
 
 class SingleProduct extends Component {
@@ -9,20 +9,28 @@ class SingleProduct extends Component {
   }
 
   componentDidMount(){
+    console.log(this.props.match.params.id)
     const {id} = this.props.match.params
     this.props.getProduct(id)
   }
 
   render(){
-    const {product} = this.product
+    console.log('this is the singleproduct')
+    const {selectedProduct} = this.props.product
     return(
       <div>
-        <Categories Pane />
+        <CategoriesPane />
         {
           <div>
-            <h1>{product.name}</h1>
+            <h1>{selectedProduct.name}</h1>
+            <img src={selectedProduct.image} alt='Product Image' width='275' height='250'/>
+            <h2>{selectedProduct.description}</h2>
+            <h3>{selectedProduct.price}</h3>
+            <button type='button'>Add to Cart</button>
+            <button type='button'>See Similar Products</button>
           </div>
         }
+      <hr />
       </div>
     )
   }
