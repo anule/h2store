@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CategoriesPane from './CategoriesPane';
 import { fetchProducts } from '../store/product';
+import { Link } from 'react-router-dom'
 
 class AllProducts extends Component {
   constructor(props){
@@ -13,12 +14,13 @@ class AllProducts extends Component {
   }
 
   render() {
+    console.log('hello this is allproducts')
     return (
       <div>
         <ul className="products">
         <CategoriesPane />
-        {this.props.product.map(product => {
-          return <li key={product.id}>{product.name}</li>
+        {this.props.product.allProducts.map(product => {
+          return <li key={product.id}><Link to={`/products/${product.id}`}>{product.name}</Link></li>
         })}
         </ul>
         <hr />
@@ -28,7 +30,7 @@ class AllProducts extends Component {
   }
 }
 
-const mapStateToProps = ({ product }) => ({ product });
+const mapStateToProps = ({product}) => ({product})
 const mapDispatchToProps = (dispatch) => ({
   getProducts: () => {
     dispatch(fetchProducts())
@@ -36,4 +38,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
-
