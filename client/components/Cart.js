@@ -24,8 +24,9 @@ class Cart extends Component {
   }
 
   render(){
+    console.log('session storage', sessionStorage);
     let total = 0;
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         <table>

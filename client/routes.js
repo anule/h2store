@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, Homepage, Footer,
   AllProducts, SingleCategory, SingleProduct, Cart, SingleProductReviews} from './components'
-import {me} from './store'
+import {me, fetchCart, getCart} from './store'
 
 /**
  * COMPONENT
@@ -65,7 +65,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      dispatch(me())
+      dispatch(me());
+      // this.props.isLoggedIn
+      // ? dispatch(fetchCart())
+      // : dispatch(getCart());
     }
   }
 }
