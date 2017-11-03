@@ -38,9 +38,7 @@ export const deleteItemFromCart = (productId, transactionId) =>
 
 export const emptyCartThunk = transactionId =>
     dispatch =>
-      axios.put(`/api/transactions/${transactionId}`, {
-        status: 'Cancelled'
-      })
+      axios.delete(`/api/transactions/${transactionId}`)
         .then(() => dispatch(emptyCart()))
         .catch(err => console.log(err));
 /**
