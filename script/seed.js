@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
-const { User, Product, Category, Review } = require('../server/db/models')
+const { Product, Category, Review } = require('../server/db/models')
 
 const data = {
   category: [
@@ -49,12 +49,28 @@ const data = {
           description: 'Tap water from New York\'s neighbor',
           price: '2.50',
           image: 'https://wp-assets.dotproperty-kh.com/wp-content/uploads/sites/14/2014/10/02084308/tap-water-in-a-glass.jpg',
+          reviews: [
+            {
+              title: 'Good for late night hydration',
+              date: '2017-10-13',
+              stars: 3.2,
+              message: 'My go to for when I wake up in the middle of the night and I\'m super thirsty.'
+            }
+          ]
         },
         {
           name: 'Well water',
           description: 'Common tap water for people living in rural areas',
           price: '1.35',
           image: 'https://static1.squarespace.com/static/51789286e4b0b5703898c1b2/t/52f9057fe4b03d29195d75fd/1392051584891/Private+Water+Well.jpg?format=1000w',
+          reviews: [
+            {
+              title: 'Meh',
+              date: '2016-02-13',
+              stars: 2,
+              message: 'It was ok, but I prefer New York city tap water.'
+            }
+          ]
         }
       ]
     },
@@ -93,6 +109,14 @@ const data = {
           description: 'Tonic Water',
           price: '3.99',
           image: 'https://www.dpsgproductfacts.com/product_images/CANADA_DRY_TONIC_WATER_8.png',
+          reviews: [
+            {
+              title: 'Incredible for burping contests!!!',
+              date: '2017-05-13',
+              stars: 5,
+              message: 'I was able to burp the full alphabet with this water! My brother owed me $5 because he said I couldn\'t!'
+            }
+          ]
         }
       ]
     },
@@ -105,6 +129,14 @@ const data = {
           description: 'Water with magical abilities',
           price: '100000.00',
           image: 'https://image.freepik.com/free-vector/happy-unicorn-and-rainbow-with-flat-design_23-2147665194.jpg',
+          reviews: [
+            {
+              title: 'These tears were MAGIC!!',
+              date: '2017-10-13',
+              stars: 3.2,
+              message: 'These tears made my 12 year scar fade away! WOW!'
+            }
+          ]
         },
         {
           name: 'Male Tears',
@@ -157,6 +189,14 @@ const data = {
           description: 'water that flamingo\'s prance around in',
           price: '50.00',
           image: 'http://www.bhmpics.com/walls/pink_flamingo_birds_in_water-wide.jpg',
+          reviews: [
+            {
+              title: 'My water is pink!',
+              date: '2017-01-01',
+              stars: 4,
+              message: 'My pet flamingo loves this water.'
+            }
+          ]
         }
       ]
     },
@@ -189,6 +229,14 @@ const data = {
           description: 'will let you live many moons',
           price: '5000000.00',
           image: 'https://vignette.wikia.nocookie.net/harrypotter/images/8/84/Felix_Felicis_Phial_HBP.png/revision/latest?cb=20161125004911',
+          reviews: [
+            {
+              title: 'This brought my pet hamster back to life!!!!',
+              date: '2017-02-10',
+              stars: 5,
+              message: 'My hamster Chibi started running on her wheel again after a few drops of this water.'
+            }
+          ]
         }
       ]
     },
@@ -201,6 +249,14 @@ const data = {
           description: 'from the icy glaciers of the North Pole',
           price: '150.00',
           image: 'https://inhabitat.com/wp-content/blogs.dir/1/files/2012/01/Fresh-Water-Arctic-2.jpg',
+          reviews: [
+            {
+              title: 'Quality H20',
+              date: '2017-03-17',
+              stars: 5,
+              message: 'I was playing football and got knocked out and this water refuled me!'
+            }
+          ]
         },
         {
           name: 'Pacific Peace',
@@ -247,6 +303,14 @@ const data = {
           description: 'water usually found next to bathrooms or in hot spots in the park',
           price: '0.00',
           image: 'https://media.angieslist.com/s3fs-public/water-fountain.jpg',
+          reviews: [
+            {
+              title: 'I love this water',
+              date: '2017-10-13',
+              stars: 3.2,
+              message: 'This water reminds me of the sips I\'d take in school in between classes!'
+            }
+          ]
         }
       ]
     },
@@ -285,6 +349,14 @@ const data = {
           description: 'water from the holiest river',
           price: '200.00',
           image: 'https://www.fairobserver.com/wp-content/uploads/2016/09/The-Ganges-2-938x450.jpg',
+          reviews: [
+            {
+              title: 'So cool',
+              date: '2017-10-13',
+              stars: 3.2,
+              message: 'I can\'t believe I have Ganges river water! Thanks!'
+            }
+          ]
         }
       ]
     },
@@ -297,6 +369,14 @@ const data = {
           description: 'the most refreshing distilled water',
           price: '2.00',
           image: 'https://d1ztbbrs4iu37k.cloudfront.net/photos/2017/02/10/92423-kylie_contest_fijiwater_new_hero_fijiwater.jpg',
+          reviews: [
+            {
+              title: 'THE BEST',
+              date: '2017-10-18',
+              stars: 5,
+              message: 'My favorite bottled water!'
+            }
+          ]
         },
         {
           name: 'Dasani',
