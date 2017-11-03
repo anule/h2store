@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART';
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
 const EMPTY_CART = 'EMPTY_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
 
 /**
  * ACTION CREATORS
@@ -13,14 +14,23 @@ const EMPTY_CART = 'EMPTY_CART'
 const getCart = cart => ({type: GET_CART, cart})
 const deleteFromCart = productId => ({type: DELETE_FROM_CART, productId})
 const emptyCart = () => ({type: EMPTY_CART})
+const addToCart = product => ({type: ADD_TO_CART, product})
 
 /**
  * THUNK CREATORS
  */
+
+export const addToCartThunk = productId =>
+  dispatch =>
+    axios.get(`/api/products/${productId}`)
+      .then(res => ({
+
+      }))
+
 export const fetchCart = () =>
   dispatch =>
     axios.get('/api/cart')
-      .then(res => ({transactionId: res.data.id, products:
+      .then(res =>  ({transactionId: res.data.id, products:
           res.data.products.map(product => { return {
             name: product.name,
             id: product.id,
@@ -48,6 +58,8 @@ export default function (state = {transactionId: 0, products: []}, action) {
   switch (action.type) {
     case GET_CART:
       return {...state, transactionId: action.cart.transactionId, products: action.cart.products}
+    case ADD_TO_CART:
+      return {...state, products: state.products.concat(action.product)}
     case DELETE_FROM_CART:
       return {...state, products: state.products.filter(product => product.id !== action.productId)}
     case EMPTY_CART:

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { fetchCart, deleteItemFromCart, emptyCartThunk } from '../store/cart';
 
 class Cart extends Component {
@@ -25,6 +25,7 @@ class Cart extends Component {
 
   render(){
     let total = 0;
+    console.log(this.props)
     return (
       <div>
         <table>
@@ -36,7 +37,7 @@ class Cart extends Component {
             <th>Quantity</th>
             <th>Subtotal</th>
           </tr>
-          {this.props.cart.products.map(product => {total += product.numOrdered * +product.price})}
+          {this.props.cart.products && this.props.cart.products.map(product => {total += product.numOrdered * +product.price})}
         {this.props.cart.products.map(product => (<tr key={product.id}>
           <td><img src={product.image} width="64" height="64" /></td>
           <td>{product.name}</td>

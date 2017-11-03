@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
+import { addToCartThunk } from '../store/cart'
 import CategoriesPane from './CategoriesPane'
 import { NavLink } from 'react-router-dom'
 import SingleProductReviews from './SingleProductReviews'
@@ -8,6 +9,7 @@ import SingleProductReviews from './SingleProductReviews'
 class SingleProduct extends Component {
   constructor(props){
     super(props)
+    this.handleAddClick = this.handleAddClick.bind(this);
   }
 
   componentDidMount(){
@@ -15,15 +17,18 @@ class SingleProduct extends Component {
     this.props.getProduct(id)
   }
 
+  handleAddClick() {
+    console.log(this.props.match.params.id)
+  }
+
   render(){
 
     const {selectedProduct} = this.props.product
     // Come back to similar products section
-    if(this.props.products){
-      const {allProducts} = this.props.products
+    if (this.props.products){
+      const { allProducts } = this.props.products
     }
-
-    return(
+    return (
       <div>
         <CategoriesPane />
         {
@@ -32,7 +37,7 @@ class SingleProduct extends Component {
             <img src={selectedProduct.image} alt='Product Image' width='275' height='250'/>
             <h2>{selectedProduct.description}</h2>
             <h3>${selectedProduct.price}</h3>
-            <button type='button'>Add to Cart</button>
+            <button type='button' onClick={this.handleAddClick}>Add to Cart</button>
             <button type='button'>See Similar Products</button>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
             <ul>
@@ -58,6 +63,9 @@ const mapState = (state) => ({product: state.product, products: state.products})
 const mapDispatch = dispatch => ({
   getProduct: (id) => {
     dispatch(fetchSingleProduct(id))
+  },
+  addToCart: (id) => {
+    dispatch(addToCartThunk(id))
   }
 })
 
