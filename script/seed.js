@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
-const { User, Product, Category } = require('../server/db/models')
+const { User, Product, Category, Review } = require('../server/db/models')
 
 const data = {
   category: [
@@ -23,6 +23,26 @@ const data = {
           description: 'Best tap water in the wol\'d',
           price: '5.00',
           image: 'http://media.phillyvoice.com/media/images/09142016_Tap_water_iStock.2e16d0ba.fill-735x490.jpg',
+          reviews: [
+            {
+              title: 'Too warm!',
+              date: '2017-10-13',
+              stars: 2,
+              message: 'this water was tasteless! Did NOT enjoy!'
+            },
+            {
+              title: 'Great Water!',
+              date: '2017-09-13',
+              stars: 4,
+              message: 'So refreshed!! I love tap water!'
+            },
+            {
+              title: 'This water was ok',
+              date: '2017-09-15',
+              stars: 3,
+              message: 'Water was aight!'
+            }
+          ]
         },
         {
           name: 'New Jersey tap water',
@@ -47,6 +67,26 @@ const data = {
           description: 'Water that no one can pronounce',
           price: '5.99',
           image: 'https://pbs.twimg.com/profile_images/717073053054865409/55C6oypp.jpg',
+          reviews: [
+            {
+              title: 'Too much CO2!!!!!',
+              date: '2016-10-13',
+              stars: 1,
+              message: 'I couldn\'t stop burping all night! So embarassing on my date!'
+            },
+            {
+              title: 'Tickles my throat',
+              date: '2017-09-18',
+              stars: 3,
+              message: 'This water was great but tickles my throat!'
+            },
+            {
+              title: 'Tasty water!',
+              date: '2017-08-18',
+              stars: 5,
+              message: 'This water makes me feel fancy!'
+            }
+          ]
         },
         {
           name: 'Canada Dry',
@@ -71,6 +111,26 @@ const data = {
           description: 'Harvested from the tears of men',
           price: '1.00',
           image: 'http://media.npr.org/assets/img/2016/03/29/ap_090911089838_sq-3271237f28995f6530d9634ff27228cae88e3440-s900-c85.jpg',
+          reviews: [
+            {
+              title: 'Salty!',
+              date: '2015-10-13',
+              stars: 1,
+              message: 'These tears made my stomach hurt!'
+            },
+            {
+              title: 'I had visions!',
+              date: '2017-06-18',
+              stars: 3,
+              message: 'After drinking these tears I think I had visions from the eyes of which they came from! SO WEIRD!'
+            },
+            {
+              title: 'I prefer the Unicorn Tears',
+              date: '2017-08-19',
+              stars: 5,
+              message: 'I tried your other product, which were the Unicorn Tears and I have to say, those were tastier!'
+            }
+          ]
         }
       ]
     },
@@ -83,6 +143,14 @@ const data = {
           description: 'water that bears shake off',
           price: '50.00',
           image: 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/wet-bear-steve-mckinzie.jpg',
+          reviews: [
+            {
+              title: 'Smelled So Bad!',
+              date: '2015-10-13',
+              stars: 1,
+              message: 'This water smelled awful! ALSO, I found a hair in it!'
+            }
+          ]
         },
         {
           name: 'Flamingo Water',
@@ -101,6 +169,20 @@ const data = {
           description: 'Sold by the ounce',
           price: '5000.00',
           image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Lucas_Cranach_-_Der_Jungbrunnen_%28Gem%C3%A4ldegalerie_Berlin%29.jpg/407px-Lucas_Cranach_-_Der_Jungbrunnen_%28Gem%C3%A4ldegalerie_Berlin%29.jpg',
+          reviews: [
+            {
+              title: 'AMAZING I think I even aged backwards!',
+              date: '2015-07-13',
+              stars: 5,
+              message: 'Wow, I can feel the energy coming back to me! I will live forever!'
+            },
+            {
+              title: 'Will continue buying this product for sure!',
+              date: '2016-06-18',
+              stars: 5,
+              message: 'I love this water, it is going to be a MUST for the rest of my life'
+            }
+          ]
         },
         {
           name: 'Elixir of life',
@@ -125,6 +207,14 @@ const data = {
           description: 'water from the big blue',
           price: '100.00',
           image: 'http://static.panoramio.com/photos/large/30914822.jpg',
+          reviews: [
+            {
+              title: 'The most refreshing water ever!',
+              date: '2016-10-13',
+              stars: 5,
+              message: 'Extremely hydrated after drinking this water'
+            }
+          ]
         }
       ]
     },
@@ -137,6 +227,20 @@ const data = {
           description: 'Recycled nature water',
           price: '.50',
           image: 'http://pagdand.org/wp-content/uploads/2017/05/rain-water-harvesting-2.jpg',
+          reviews: [
+            {
+              title: 'Refreshing',
+              date: '2017-10-13',
+              stars: 4.5,
+              message: 'Loved this water, it was so fresh!'
+            },
+            {
+              title: 'Used this water for my plants!',
+              date: '2017-06-18',
+              stars: 5,
+              message: 'My plants have grown so much with this rain water!'
+            }
+          ]
         },
         {
           name: 'Fountain water',
@@ -155,6 +259,26 @@ const data = {
           description: 'water blessed by the Pope himself',
           price: '600.00',
           image: 'http://3.bp.blogspot.com/-mK9-UzTvKxk/VhrWSbL0IQI/AAAAAAAAOjc/uDe6763G_J4/s1600/Pope-Francis-sprinkles-Holy-Water.jpg',
+          reviews: [
+            {
+              title: '#BLESSED',
+              date: '2015-10-16',
+              stars: 5,
+              message: 'I feel so purified OMAGAH!'
+            },
+            {
+              title: 'Great for Exorcisms',
+              date: '2017-08-18',
+              stars: 5,
+              message: 'Used this for a difficult case and the demons were out in less than an hour!'
+            },
+            {
+              title: 'Thank you for having this online!',
+              date: '2017-08-19',
+              stars: 5,
+              message: 'This is great! I didn\'t have to travel to the Vatican for this! Used it at my nieces baptism!'
+            }
+          ]
         },
         {
           name: 'Ganges river water',
@@ -179,6 +303,14 @@ const data = {
           description: 'Coca-Cola\'s bottled water',
           price: '1.50',
           image: 'http://www.dasani.com/img/dasani-products/dasani-hover.jpg',
+          reviews: [
+            {
+              title: 'Great bottled water!',
+              date: '2016-10-13',
+              stars: 3.5,
+              message: 'This water was hydrating!'
+            }
+          ]
         }
       ]
     }
@@ -186,13 +318,13 @@ const data = {
 };
 
 async function seed() {
-  await db.sync({force: true})
+  await db.sync({ force: true })
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
   const categories = await Promise.all(data.category.map(category => {
-    return Category.create(category, { include: [Product] });
+    return Category.create(category, { include: [{ model: Product, include: [Review] }] });
   }))
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
