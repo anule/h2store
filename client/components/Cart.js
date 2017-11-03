@@ -24,7 +24,7 @@ class Cart extends Component {
   }
 
   render(){
-    let i = 0;
+    let total = 0;
     return (
       <div>
         <table>
@@ -36,15 +36,17 @@ class Cart extends Component {
             <th>Quantity</th>
             <th>Subtotal</th>
           </tr>
-          {console.log(this.props.cart)}
-        {this.props.cart.products && this.props.cart.products.map(product => (<tr key={i++}>
+          {this.props.cart.products.map(product => {total += product.numOrdered * +product.price})}
+        {this.props.cart.products.map(product => (<tr key={product.id}>
           <td><img src={product.image} width="64" height="64" /></td>
           <td>{product.name}</td>
           <td>{+product.price}</td>
           <td>{product.numOrdered}</td>
           <td>{product.numOrdered * +product.price}</td>
           <td><button onClick={() => this.handleDelete(product.id, product.transactionId)}>Delete Item</button></td>
-        </tr>))}</tbody></table>
+        </tr>))}
+        <tr><td>Total</td><td /><td /><td /><td>{total}</td></tr>
+        </tbody></table>
         <button onClick={() => this.clearCart(this.props.cart.transactionId)}>Delete Cart</button>
         <hr />
       </div>
