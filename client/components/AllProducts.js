@@ -16,8 +16,8 @@ class AllProducts extends Component {
   render() {
     console.log('hello this is allproducts')
     return (
-      <div>
-        <ul className="products">
+      <div className="container product-container">
+        <ul>
         <CategoriesPane />
         {this.props.product.allProducts.map(product => {
           return <li key={product.id}><Link to={`/products/${product.id}`}>{product.name}</Link></li>

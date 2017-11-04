@@ -14,9 +14,9 @@ class CategoriesPane extends Component {
 
   render(){
     return (
-      <div className="left-pane">
+      <div id="left-pane">
       <ul>
-        <li><Link to="/products">All Categories</Link></li>
+        <li id="all-categories"><Link to="/products">All Categories</Link></li>
         {this.props.category.allCategories.map(category => {
         return <li key={category.id}><Link to={`/categories/${category.id}`}>{category.name}</Link></li>
         })}

@@ -1,54 +1,86 @@
+@import 'reset';
+
+/* Sass variables */
+$font-primary: 'Calibre Light', sans-serif;
+$font-emphasis: 'Calibre Regular', sans-serif;
+
+/* Styling guides */
+div, li, ul {
+  border: 1px solid black;
+}
+
+/* General styling */
 body {
-  font-family: 'Calibre Light', sans-serif;
+  font-family: $font-primary;
   box-sizing: border-box;
+}
 
+a {
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+}
+
+/* Header */
+nav {
   a {
-    text-decoration: none;
-  }
-
-  label {
-    display: block;
-  }
-
-  nav a {
     display: inline-block;
-     margin: 1em;
-  }
-
-  form div {
     margin: 1em;
-    display: inline-block;
-  }
-
-  .nav-bar {
-    font-family: "Calibre Light";
-    font-weight: 200;
-    font-style: normal;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-  }
-
-  .left-pane{
-    float: left;
-  }
-
-  .homepage {
-    align-items: center;
-  }
-
-  .footer {
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .logo{
-    height: 2em;
   }
 }
+
+.nav-bar {
+  font-family: $font-primary;
+  font-weight: 200;
+  font-style: normal;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+/* Auth-form */
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+label {
+  display: block;
+}
+
+/**** ALL PRODUCTS COMPONENT ****/
+/* Categories Pane */
+#left-pane {
+  li {
+    font-family: $font-primary;
+  }
+}
+
+#all-categories {
+  font-family: $font-emphasis;
+}
+
+/* All categories flexbox */
+.product-container {
+  flex-direction: column;
+}
+
+
+/* Homepage */
+.homepage {
+  align-items: center;
+}
+
+.footer {
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.logo{
+  height: 2em;
+}
+
 
