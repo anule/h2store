@@ -4,32 +4,30 @@ import { Link } from 'react-router-dom';
 import { fetchCategories } from '../store/category';
 
 class CategoriesPane extends Component {
-  constructor(){
-    super()
+  constructor() {
+    super();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getCategories();
   }
 
-  render(){
+  render() {
     return (
-      <div id="left-pane">
-      <ul>
-        <li id="all-categories"><Link to="/products">All Categories</Link></li>
+      <div id="left-pane container">
+        <p id="all-categories"><Link to="/products">All Categories</Link></p>
         {this.props.category.allCategories.map(category => {
-        return <li key={category.id}><Link to={`/categories/${category.id}`}>{category.name}</Link></li>
+          return <p key={category.id}><Link to={`/categories/${category.id}`}>{category.name}</Link></p>;
         })}
-      </ul>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = ({ category }) => ({ category });
 const mapDispatchToProps = (dispatch) => ({
   getCategories: () => {
-    dispatch(fetchCategories())
+    dispatch(fetchCategories());
   }
 });
 

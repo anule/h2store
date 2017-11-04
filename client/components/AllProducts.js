@@ -1,39 +1,48 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CategoriesPane from './CategoriesPane';
 import { fetchProducts } from '../store/product';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class AllProducts extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getProducts();
   }
 
   render() {
-    console.log('hello this is allproducts')
+    console.log('hello this is allproducts');
     return (
       <div className="container product-container">
-        <ul>
         <CategoriesPane />
-        {this.props.product.allProducts.map(product => {
-          return <li key={product.id}><Link to={`/products/${product.id}`}>{product.name}</Link></li>
-        })}
-        </ul>
+        <div id="products-pane">
+          {this.props.product.allProducts.map(product => {
+            return (
+              <span className="products" key={product.id}>
+                <Link to={`/products/${product.id}`}>
+                  <div className="product-preview container">
+                    <img src={product.image} />
+                    <p>{product.name}</p>
+                    <p>Price: {`$ ${product.price}`}</p>
+                  </div>
+                </Link>
+              </span>);
+          })}
+        </div>
         <hr />
       </div>
 
-    )
+    );
   }
 }
 
-const mapStateToProps = ({product}) => ({product})
+const mapStateToProps = ({ product }) => ({ product });
 const mapDispatchToProps = (dispatch) => ({
   getProducts: () => {
-    dispatch(fetchProducts())
+    dispatch(fetchProducts());
   }
 });
 
