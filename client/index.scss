@@ -53,8 +53,9 @@ label {
 /**** ALL PRODUCTS COMPONENT ****/
 /* Categories Pane */
 #left-pane {
-  li {
-    font-family: $font-primary;
+  width: 35%;
+  span {
+    display: block;
   }
 }
 
@@ -63,8 +64,26 @@ label {
 }
 
 /* All categories flexbox */
-.product-container {
-  flex-direction: column;
+#products-pane {
+  @extend .container;
+  float: left;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 60%;
+}
+
+.product-preview {
+  display: block;
+  flex-direction: row;
+  border: 0.5px solid #bbbbbb;
+  margin: 5px 2.5px;
+}
+
+.product-preview img {
+  width: 125px;
+  height: 125px;
+  padding: 5px;
 }
 
 
@@ -73,10 +92,13 @@ label {
   align-items: center;
 }
 
-.footer {
-  justify-content: space-between;
+footer {
+  justify-content: space-around;
   width: 100%;
   align-items: center;
+  height: 50px;
+  margin: 15px;
+
 }
 
 .logo{
