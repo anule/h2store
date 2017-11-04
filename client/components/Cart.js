@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, deleteItemFromCart, emptyCartThunk } from '../store/cart';
+import { getCartThunk, getCart, deleteFromCartThunk, deleteFromCart, emptyCartThunk, emptyCart } from '../store/cart';
 
 class Cart extends Component {
   constructor(){
@@ -10,23 +10,29 @@ class Cart extends Component {
   }
 
   componentDidMount(){
-    this.props.user
-    ? this.props.getCart()
-    : this.props.cart = sessionStorage;
+    this.props.user.id
+    ? this.props.getCartLoggedIn()
+    : this.props.getCartNotLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
   }
 
   handleDelete(productId, transactionId){
-    this.props.removeItemFromCart(productId, transactionId);
+    this.props.user.id
+    ? this.props.removeItemFromCartLoggedIn(productId)
+    : this.props.removeItemFromCartNotLoggedIn(productId, transactionId)
   }
 
   clearCart(transactionId){
-    this.props.clearCart(transactionId);
+    this.props.user.id
+    ? this.props.emptyCartLoggedIn(transactionId)
+    : this.props.emptyCartNotLoggedIn(transactionId)
+  }
+
+  componentDidUpdate(){
+    sessionStorage.setItem('cart', JSON.stringify(this.props.cart));
   }
 
   render(){
-    console.log('session storage', sessionStorage);
     let total = 0;
-    // console.log(this.props)
     return (
       <div>
         <table>
@@ -58,14 +64,29 @@ class Cart extends Component {
 
 const mapStateToProps = ({ user, cart }) => ({ user, cart });
 const mapDispatchToProps = dispatch => ({
-  getCart: () => {
-    dispatch(fetchCart())
+  getCartLoggedIn: () => {
+    dispatch(getCartThunk());
+    console.log('getCartLoggedIn')
   },
-  removeItemFromCart: (productId, transactionId) => {
-    dispatch(deleteItemFromCart(productId, transactionId))
+  getCartNotLoggedIn: cart => {
+    dispatch(getCart(cart))
+    console.log('getCartNotLoggedIn')
   },
-  clearCart: (transactionId) => {
-    dispatch(emptyCartThunk(transactionId))
+  removeItemFromCartLoggedIn: (productId, transactionId) => {
+    dispatch(deleteFromCartThunk(productId, transactionId));
+    console.log('removeItemFromCartLoggedIn')
+  },
+  removeItemFromCartNotLoggedIn: (productId) => {
+    dispatch(deleteFromCart(productId));
+    console.log('removeItemFromCartNotLoggedIn')
+  },
+  emptyCartLoggedIn: (transactionId) => {
+    dispatch(emptyCartThunk(transactionId));
+    console.log('emptyCartLoggedIn')
+  },
+  emptyCartNotLoggedIn: (transactionId) => {
+    dispatch(emptyCart(transactionId));
+    console.log('emptyCartNotLoggedIn')
   }
 })
 

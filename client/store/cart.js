@@ -12,10 +12,10 @@ const ADD_TO_CART = 'ADD_TO_CART'
 /**
  * ACTION CREATORS
  */
-const getCart = cart => ({ type: GET_CART, cart })
-const deleteFromCart = productId => ({ type: DELETE_FROM_CART, productId })
-const emptyCart = () => ({ type: EMPTY_CART })
-const addToCart = product => ({ type: ADD_TO_CART, product })
+export const getCart = cart => ({ type: GET_CART, cart })
+export const deleteFromCart = productId => ({ type: DELETE_FROM_CART, productId })
+export const emptyCart = () => ({ type: EMPTY_CART })
+export const addToCart = product => ({ type: ADD_TO_CART, product })
 
 /**
  * THUNK CREATORS
@@ -27,7 +27,7 @@ export const addToCartThunk = product =>
       .then(dispatch(addToCart(product)))
       .catch(err => console.log(err));
 
-export const fetchCart = () =>
+export const getCartThunk = () =>
   dispatch =>
     axios.get('/api/cart')
       .then(res => ({
@@ -48,7 +48,7 @@ export const fetchCart = () =>
       .then(res => dispatch(getCart(res)))
       .catch(err => console.log(err));
 
-export const deleteItemFromCart = (productId, transactionId) =>
+export const deleteFromCartThunk = (productId, transactionId) =>
   dispatch =>
     axios.put('/api/transactions-products', { transactionId, productId })
       .then(() => dispatch(deleteFromCart(productId)))

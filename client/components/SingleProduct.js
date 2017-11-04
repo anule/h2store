@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store/product';
-import { addToCartThunk } from '../store/cart';
+import { addToCartThunk, addToCart } from '../store/cart';
 import CategoriesPane from './CategoriesPane';
 import { NavLink } from 'react-router-dom';
+import Promise from 'bluebird'
 import SingleProductReviews from './SingleProductReviews';
 
 class SingleProduct extends Component {
@@ -15,19 +16,20 @@ class SingleProduct extends Component {
   componentDidMount(){
     const {id} = this.props.match.params;
     this.props.getProduct(id);
+
   }
 
   handleAddClick() {
     const {selectedProduct} = this.props.product;
     selectedProduct.numOrdered = 1;
-    this.props.user
-    ? this.props.addToCart(selectedProduct)
-    : sessionStorage.setItem('cart', this.props.cart);
-    console.log('session storage', sessionStorage);
+    this.props.user.id
+    ? this.props.addToCartLoggedIn(selectedProduct)
+    : this.props.addToCartNotLoggedIn(selectedProduct)
   }
 
   render(){
-
+    sessionStorage.setItem('cart', JSON.stringify(this.props.cart));
+    console.log('session storage', sessionStorage.getItem('cart'))
     const {selectedProduct} = this.props.product;
     // Come back to similar products section
     return (
@@ -66,8 +68,14 @@ const mapDispatch = dispatch => ({
   getProduct: (id) => {
     dispatch(fetchSingleProduct(id));
   },
-  addToCart: (product) => {
+  addToCartLoggedIn: (product) => {
+    console.log('addToCartLoggedIn')
     dispatch(addToCartThunk(product));
+  },
+  addToCartNotLoggedIn: (product) => {
+    console.log('addToCartNotLoggedIn');
+    dispatch(addToCart(product));
+
   }
 });
 
