@@ -5,9 +5,10 @@ import { updateUserProfile } from '../store/user'
 class ProfileUpdate extends Component {
 
   constructor(props) {
+    console.log('HEY', props.user)
     super(props);
     this.state = {
-      firstName: '',
+      firstName: props.user.firstName,
       lastName: '',
       address: '',
       city: '',
@@ -34,8 +35,9 @@ class ProfileUpdate extends Component {
   }
 
   handleSubmit(evt) {
+
     evt.preventDefault();
-    this.props.updateUserFunc(this.state);
+    this.props.updateUserFunc(this.props.user.id, this.state);
     this.setState({ firstName: '', lastName: '', address: '', city: '', state: '', zipcode: '', username: '' })
   }
 
@@ -95,11 +97,11 @@ class ProfileUpdate extends Component {
               value={this.state.username}
               onChange={this.handleChange}
             />
+          </div> <br />
+          <div>
+            <button type="submit">Update Profile</button>
           </div>
         </form>
-        <span>
-          <button type="submit">Update Profile</button>
-        </span>
       </div>
     )
   }
@@ -113,8 +115,8 @@ const mapStateToProps = (state) => {
 
 const mapStateToDispatch = (dispatch) => {
   return {
-    updateUserFunc: function (userInfo) {
-      dispatch(updateUserProfile(userInfo))
+    updateUserFunc: function (userId, userInfo) {
+      dispatch(updateUserProfile(userId, userInfo))
     }
   }
 };
