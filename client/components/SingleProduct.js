@@ -39,8 +39,9 @@ class SingleProduct extends Component {
             <img src={selectedProduct.image} alt="Product Image" width="275" height="250" />
             <h2>{selectedProduct.description}</h2>
             <h3>${selectedProduct.price}</h3>
-            <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
-            <button type="button">See Similar Products</button>
+            <button type='button' onClick={this.handleAddClick}>Add to Cart</button>
+            <button type='button'>See Similar Products</button>
+            <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
             <ul>
               {
