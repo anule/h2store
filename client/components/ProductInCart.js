@@ -28,8 +28,13 @@ class ProductInCart extends Component {
 
   handleUpdate(productId){
     event.preventDefault();
+    const { numInStock } = this.props.product;
     if (Number(this.state.quantity) === 0){
       this.handleDelete(productId, this.props.cart.transactionId)
+      return
+    }
+    if (this.state.quantity > numInStock){
+      alert(`There are only ${numInStock} of this item in stock!`)
       return
     }
     this.props.user.id
