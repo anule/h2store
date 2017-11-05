@@ -21,6 +21,7 @@ router.get('/:id', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   User.findById(req.params.id)
-    .then(user => res.json(user.update(req.body)))
+    .then(user => user.update(req.body))
+    .then(result => res.json(result))
     .catch(next);
 })

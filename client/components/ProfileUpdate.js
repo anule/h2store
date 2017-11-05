@@ -5,23 +5,22 @@ import { updateUserProfile } from '../store/user'
 class ProfileUpdate extends Component {
 
   constructor(props) {
-    console.log('HEY', props.user)
+
     super(props);
     this.state = {
       firstName: props.user.firstName,
-      lastName: '',
-      address: '',
-      city: '',
-      state: '',
-      zipcode: '',
-      username: ''
+      lastName: props.user.lastName,
+      address: props.user.address,
+      city: props.user.city,
+      state: props.user.state,
+      zipcode: props.user.zipcode,
+      username: props.user.username
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(evt) {
-    console.log('EVENT', evt.target)
     const firstName = evt.target.form.firstName.value;
     const lastName = evt.target.form.lastName.value;
     const address = evt.target.form.address.value;
@@ -42,8 +41,6 @@ class ProfileUpdate extends Component {
   }
 
   render() {
-    console.log('USER ----', this.props.user)
-    console.log('STATE -----', this.state)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
