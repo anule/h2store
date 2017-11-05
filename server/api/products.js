@@ -19,3 +19,16 @@ router.get('/:id', (req, res, next) => {
     .then(product => res.json(product))
     .catch(next);
 });
+
+router.post('/:id/review', (req, res, next) => {
+  const productId = req.params.id
+  Review.create({
+    title: req.body.title,
+    stars: req.body.stars,
+    message: req.body.message,
+    userId: req.body.userId,
+    productId: productId
+  })
+  .then(review => res.json(review))
+  .catch(next)
+})
