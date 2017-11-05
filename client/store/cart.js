@@ -7,7 +7,7 @@ const GET_CART = 'GET_CART';
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
 const EMPTY_CART = 'EMPTY_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-
+const UPDATE_QUANTITY_IN_CART = 'UPDATE_QUANTITY_IN_CART'
 
 /**
  * ACTION CREATORS
@@ -15,7 +15,8 @@ const ADD_TO_CART = 'ADD_TO_CART'
 export const getCart = cart => ({ type: GET_CART, cart })
 export const deleteFromCart = productId => ({ type: DELETE_FROM_CART, productId })
 export const emptyCart = () => ({ type: EMPTY_CART })
-export const addToCart = product => ({ type: ADD_TO_CART, product })
+export const addToCart = product => ({ type: ADD_TO_CART, product });
+export const updateQuantityInCart = (productId, quantity) => ({type: UPDATE_QUANTITY_IN_CART, productId, quantity})
 
 /**
  * THUNK CREATORS
@@ -61,6 +62,13 @@ export const emptyCartThunk = transactionId =>
     axios.delete(`/api/transactions/${transactionId}`)
       .then(() => dispatch(emptyCart()))
       .catch(err => console.log(err));
+
+export const updateQuantityInCartThunk = (productId, transactionId, quantity) =>
+    dispatch =>
+      axios.put('api/transactions-products/update', { productId, transactionId, quantity})
+        .then(() => dispatch(updateQuantityInCart(productId, quantity)))
+        .catch(err => console.log(err))
+
 /**
  * REDUCER
  */
@@ -74,6 +82,13 @@ export default function (state = { transactionId: 0, products: [] }, action) {
       return { ...state, products: state.products.filter(product => product.id !== action.productId) }
     case EMPTY_CART:
       return { transactionId: 0, products: [] }
+    case UPDATE_QUANTITY_IN_CART:
+      return {...state, products: state.products.map(product => {
+          return product.id !== action.productId
+          ? product
+          : {...product, numOrdered: action.quantity}
+      }
+      )}
     default:
       return state
   }

@@ -44,10 +44,19 @@ class SingleProduct extends Component {
             <img src={selectedProduct.image} alt="Product Image" width="275" height="250" />
             <h2>{selectedProduct.description}</h2>
             <h3>${selectedProduct.price}</h3>
-            {selectedProduct.visibilityToggle ? <button type="button" onClick={this.handleAddClick}>Add to Cart</button> : <h4>This product is not currently available - please check back later!</h4>}
+            {((selectedProduct.numInStock !== 0) && selectedProduct.visibilityToggle)
+              ? <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
+              : <h4>This product is not currently available - please check back later!</h4>}
+            <br />
+            {(selectedProduct.numInStock < 10 && selectedProduct.numInStock > 0)
+              ? `Only ${selectedProduct.numInStock} left - more coming!`
+              : null }
             <button type="button">See Similar Products</button>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
             <ul>
+              {selectedProduct.reviews && `Average rating = ${
+                parseFloat(selectedProduct.reviews.reduce(function(sum, value) {
+                return sum + Number(value.stars)}, 0) / selectedProduct.reviews.length).toFixed(1)} stars`}
               {
                 selectedProduct.reviews && (selectedProduct.reviews.slice(0, 2).map(review => (
                   <li key={review.id}><span>{review.title}&nbsp;&nbsp;&nbsp;{review.date}</span>
