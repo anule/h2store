@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { getCartThunk, getCart, deleteFromCartThunk, deleteFromCart, emptyCartThunk, emptyCart } from '../store/cart';
@@ -11,7 +13,9 @@ class Cart extends Component {
 
   componentDidMount(){
     this.props.user.id
-    ? this.props.getCartLoggedIn()
+    ? this.props.cart.transactionId
+        ? this.props.getCartLoggedIn()
+        : this.props.getCartLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
     : this.props.getCartNotLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
   }
 
@@ -33,6 +37,7 @@ class Cart extends Component {
 
   render(){
     let total = 0;
+    const numToDollarsCents = num => (parseFloat(num).toFixed(2))
     return (
       <div>
         <table>
@@ -48,12 +53,12 @@ class Cart extends Component {
         {this.props.cart.products.map(product => (<tr key={product.id}>
           <td><img src={product.image} width="64" height="64" /></td>
           <td>{product.name}</td>
-          <td>{+product.price}</td>
+          <td>${numToDollarsCents(+product.price)}</td>
           <td>{product.numOrdered}</td>
-          <td>{product.numOrdered * +product.price}</td>
+          <td>${numToDollarsCents(product.numOrdered * +product.price)}</td>
           <td><button onClick={() => this.handleDelete(product.id, product.transactionId)}>Delete Item</button></td>
         </tr>))}
-        <tr><td>Total</td><td /><td /><td /><td>{total}</td></tr>
+        <tr><td>Total</td><td /><td /><td /><td>${numToDollarsCents(total)}</td></tr>
         </tbody></table>
         <button onClick={() => this.clearCart(this.props.cart.transactionId)}>Delete Cart</button>
         <hr />
@@ -64,8 +69,8 @@ class Cart extends Component {
 
 const mapStateToProps = ({ user, cart }) => ({ user, cart });
 const mapDispatchToProps = dispatch => ({
-  getCartLoggedIn: () => {
-    dispatch(getCartThunk());
+  getCartLoggedIn: cart => {
+    dispatch(getCartThunk(cart));
     console.log('getCartLoggedIn')
   },
   getCartNotLoggedIn: cart => {

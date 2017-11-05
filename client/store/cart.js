@@ -27,26 +27,28 @@ export const addToCartThunk = product =>
       .then(dispatch(addToCart(product)))
       .catch(err => console.log(err));
 
-export const getCartThunk = () =>
-  dispatch =>
-    axios.get('/api/cart')
-      .then(res => ({
-        transactionId: res.data.id, products:
-          res.data.products.map(product => {
-            return {
-              name: product.name,
-              id: product.id,
-              price: product.price,
-              image: product.image,
-              numInStock: product.numInStock,
-              numOrdered: product['transactions-products'].numOrdered
-            };
-          }
-          )
-      }
-      ))
-      .then(res => dispatch(getCart(res)))
-      .catch(err => console.log(err));
+export const getCartThunk = cart =>
+dispatch =>
+  axios.get('/api/cart')
+    .then(res => {
+      return res.data[1]
+      ? {transactionId: res.data[0].id,
+        products: cart.products}
+      : {transactionId: res.data[0].id, products:
+         res.data[0].products.map(product => {
+          return {
+            name: product.name,
+            id: product.id,
+            price: product.price,
+            image: product.image,
+            numInStock: product.numInStock,
+            numOrdered: product['transactions-products'].numOrdered
+          };
+        }
+        )
+    }})
+    .then(res => dispatch(getCart(res)))
+    .catch(err => console.log(err));
 
 export const deleteFromCartThunk = (productId, transactionId) =>
   dispatch =>

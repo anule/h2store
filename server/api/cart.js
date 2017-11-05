@@ -3,8 +3,8 @@ const { Transaction, TransactionsProducts } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-  return req.session.passport
-  ? Transaction.findOne({
+  return req.session.passport.user
+  ? Transaction.findOrCreate({
     where: {
       userId: req.session.passport.user,
       status: 'Pending'

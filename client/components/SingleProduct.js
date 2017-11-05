@@ -4,7 +4,6 @@ import { fetchSingleProduct } from '../store/product';
 import { addToCartThunk, addToCart } from '../store/cart';
 import CategoriesPane from './CategoriesPane';
 import { NavLink } from 'react-router-dom';
-import Promise from 'bluebird'
 import SingleProductReviews from './SingleProductReviews';
 
 class SingleProduct extends Component {
@@ -16,15 +15,19 @@ class SingleProduct extends Component {
   componentDidMount(){
     const {id} = this.props.match.params;
     this.props.getProduct(id);
-
   }
 
   handleAddClick() {
     const {selectedProduct} = this.props.product;
     selectedProduct.numOrdered = 1;
+    const alreadyInCart = this.props.cart.products.filter(product => product.id === selectedProduct.id)
+    if (alreadyInCart.length > 0) {
+      alert('This product is already in your cart!')
+    } else {
     this.props.user.id
     ? this.props.addToCartLoggedIn(selectedProduct)
     : this.props.addToCartNotLoggedIn(selectedProduct)
+    }
   }
 
   render(){
@@ -41,7 +44,7 @@ class SingleProduct extends Component {
             <img src={selectedProduct.image} alt="Product Image" width="275" height="250" />
             <h2>{selectedProduct.description}</h2>
             <h3>${selectedProduct.price}</h3>
-            <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
+            {selectedProduct.visibilityToggle ? <button type="button" onClick={this.handleAddClick}>Add to Cart</button> : <h4>This product is not currently available - please check back later!</h4>}
             <button type="button">See Similar Products</button>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
             <ul>
@@ -75,7 +78,6 @@ const mapDispatch = dispatch => ({
   addToCartNotLoggedIn: (product) => {
     console.log('addToCartNotLoggedIn');
     dispatch(addToCart(product));
-
   }
 });
 
