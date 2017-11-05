@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { postReview, createReview, fetchSingleProduct } from '../store'
-import { NavLink } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class WriteReview extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      redirect: false
+    }
+
   }
 
   componentDidMount(){
     const {id} = this.props.match.params
     this.props.getProduct(id)
-    // this.props.newReview(re)
     this.handleChange = this.handleChange.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
   }
 
 
@@ -21,15 +25,26 @@ class WriteReview extends Component {
     this.props.newReview(this.props.review)
   }
 
+  handleRedirect (review, evt) {
+    this.props.handleSubmit(review, evt)
+    this.setState({redirect: true})
+
+  }
+
   render (){
     const {review, handleSubmit, productId, product, userId} = this.props
+    const { redirect } = this.state
     review.productId = productId
     review.userId = userId
+
+    if (redirect) {
+      return <Redirect to={`/products/${productId}/reviews`} />
+    }
     return (
       <div>
         <h3>{product.name}</h3>
         <h4>Write Your Review</h4>
-        <form onSubmit={evt => handleSubmit(review, evt)}>
+        <form onSubmit={evt => this.handleRedirect(review, evt)}>
           <label htmlFor='title'>Title</label>
             <input
               value={review.title}
