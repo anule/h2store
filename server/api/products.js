@@ -32,3 +32,19 @@ router.post('/:id/review', (req, res, next) => {
   .then(review => res.json(review))
   .catch(next)
 })
+
+
+router.delete('/:id/reviews/:reviewId', (req, res, next) => {
+  Review.destroy({
+    where: {
+      id: req.params.reviewId
+    }
+  })
+  .then(() => Review.findAll({
+    where: {
+      productId: req.params.id
+    }
+  }))
+  .then(reviews => res.status(204).json(reviews))
+  .catch(next)
+})
