@@ -14,10 +14,10 @@ class CategoriesPane extends Component {
 
   render() {
     return (
-      <div id="left-pane container">
-        <p id="all-categories"><Link to="/products">All Categories</Link></p>
+      <div className="left-pane">
+        <p id="em-categories"><Link to="/products">All Categories</Link></p>
         {this.props.category.allCategories.map(category => {
-          return <p key={category.id}><Link to={`/categories/${category.id}`}>{category.name}</Link></p>;
+          return (<p className="category-name" key={category.id}><Link to={`/categories/${category.id}`}>{category.name}</Link></p>);
         })}
       </div>
     );
