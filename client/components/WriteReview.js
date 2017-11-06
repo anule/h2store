@@ -1,62 +1,35 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { postReview, createReview, fetchSingleProduct } from '../store'
-import { Redirect } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 class WriteReview extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      redirect: false,
-      submitVisible: false
-    }
-
   }
 
   componentDidMount(){
     const {id} = this.props.match.params
     this.props.getProduct(id)
+    // this.props.newReview(re)
     this.handleChange = this.handleChange.bind(this)
-    this.handleRedirect = this.handleRedirect.bind(this)
   }
 
-  componentWillReceiveProps(nextProps){
-    if (this.props.userId !== nextProps.userId && nextProps.userId) {
-      this.setState({submitVisible: true})
-    }
-  }
 
   handleChange (event) {
     this.props.review[event.target.name] = event.target.value
     this.props.newReview(this.props.review)
   }
 
-  handleRedirect (review, evt) {
-    if (!this.props.review.title || !this.props.review.stars || !this.props.review.message){
-      evt.preventDefault()
-      alert('Please populate all fields in the Review form.')
-    } else {
-      this.props.handleSubmit(review, evt)
-      this.setState({redirect: true})
-    }
-  }
-
-
   render (){
-    const {review, productId, product, userId} = this.props
-    const { redirect } = this.state
+    const {review, handleSubmit, productId, product, userId} = this.props
     review.productId = productId
     review.userId = userId
-
-    if (redirect) {
-      return <Redirect to={`/products/${productId}/reviews`} />
-    }
-
     return (
       <div>
         <h3>{product.name}</h3>
         <h4>Write Your Review</h4>
-        <form onSubmit={evt => this.handleRedirect(review, evt)}>
+        <form onSubmit={evt => handleSubmit(review, evt)}>
           <label htmlFor='title'>Title</label>
             <input
               value={review.title}
@@ -80,15 +53,9 @@ class WriteReview extends Component {
               name="message"
               onChange={this.handleChange}
             />
-          {
-            this.state.submitVisible ?
             <button type="submit">
                 Submit
-              </button> :
-              <button type="submit" disabled>
-                  Submit
-                </button>
-          }
+              </button>
         </form>
         <hr />
       </div>
