@@ -1,18 +1,20 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Router } from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Homepage, Footer,
-  AllProducts, SingleCategory, SingleProduct, Cart, SingleProductReviews} from './components'
-import {me, fetchCart, getCart} from './store'
+import {
+  Main, Login, Signup, UserHome, Homepage, Footer,
+  AllProducts, SingleCategory, SingleProduct, Cart, SingleProductReviews, ProfileUpdate
+} from './components'
+import { me, getCart } from './store'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData()
     if (!this.props.isLoggedIn) {
       console.log(JSON.parse(sessionStorage.getItem('cart')))
@@ -20,8 +22,8 @@ class Routes extends Component {
     }
   }
 
-  render () {
-    const {isLoggedIn} = this.props
+  render() {
+    const { isLoggedIn } = this.props
 
     return (
       <Router history={history}>
@@ -33,23 +35,24 @@ class Routes extends Component {
               <Route exact path="/products" component={AllProducts} />
               <Route exact path="/products/:id" component={SingleProduct} />
               <Route path="/products/:id/reviews" component={SingleProductReviews} />
+              <Route path="/:id/update" component={ProfileUpdate} />
               <Route path="/categories/:id" component={SingleCategory} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/cart" component={Cart} />
               {
                 isLoggedIn &&
-                  <Switch>
-                    {/* Routes placed here are only available after logging in */}
-                    <Route path="/home" component={UserHome} />
-                  </Switch>
+                <Switch>
+                  {/* Routes placed here are only available after logging in */}
+                  <Route path="/home" component={UserHome} />
+                </Switch>
               }
               {/* Displays our Login component as a fallback */}
               <Route component={Login} />
             </Switch>
           </Main>
-        <Footer />
-      </div>
+          <Footer />
+        </div>
       </Router>
     )
   }
@@ -69,7 +72,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me());
     }
   }
