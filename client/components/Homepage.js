@@ -4,7 +4,12 @@ import BestSellers from './BestSellers'
 const Homepage = () => {
   return (
     <div className="homepage">
-      <img src="/h2StoreHomepage.jpeg" alt="Splash Image" />
+      <section className="carousel">
+        <img className="carousel-image" src="images/colorado-waterfall.jpg" />
+        <img className="carousel-image hidden" src="images/lake-victoria.jpg" />
+        <img className="carousel-image hidden" src="images/zambian-kids-clean-water.jpg" />
+        <img className="carousel-image hidden" src="images/irish-waterfall.jpg" />
+      </section>
       <p>Mission Statement: For each product purchased, we will donate 12oz
       of water to an orphan or a very thirsty bird.</p>
       <div>
