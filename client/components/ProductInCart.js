@@ -23,14 +23,19 @@ class ProductInCart extends Component {
   handleChange(event){
     event.preventDefault();
     this.setState({quantity: event.target.value});
+    if (event.target.value > this.props.product.numInStock){
+      this.setState({tooManyWarning: true})
+    } else {
+      this.setState({tooManyWarning: false})
+    }
     console.log('triggered handleChange', event.target.value)
   }
 
-  handleUpdate(productId){
+  handleUpdate(event){
     event.preventDefault();
-    const { numInStock } = this.props.product;
+    const { numInStock, id, transactionId } = this.props.product;
     if (Number(this.state.quantity) === 0){
-      this.handleDelete(productId, this.props.cart.transactionId)
+      this.handleDelete(id, this.props.cart.transactionId)
       return
     }
     if (this.state.quantity > numInStock){
@@ -38,8 +43,8 @@ class ProductInCart extends Component {
       return
     }
     this.props.user.id
-    ? this.props.updateQuantityInCartLoggedIn(productId, this.props.cart.transactionId, Number(this.state.quantity))
-    : this.props.updateQuantityInCartNotLoggedIn(productId, this.state.quantity)
+    ? this.props.updateQuantityInCartLoggedIn(id, transactionId, Number(this.state.quantity))
+    : this.props.updateQuantityInCartNotLoggedIn(id, this.state.quantity)
   }
 
   render(){
@@ -53,13 +58,17 @@ class ProductInCart extends Component {
           <td>{product.numOrdered}</td>
           <td>${numToDollarsCents(product.numOrdered * +product.price)}</td>
           <td><button onClick={() => this.handleDelete(product.id, product.transactionId)}>Delete Item</button></td>
-          <td><form><input
+          <td><form onSubmit={this.handleUpdate}
+                  ><input
                 type="text"
                 placeholder={product.numOrdered}
                 onChange={this.handleChange}
                 value={this.state.quantity}
                 name="quantity" />
-          <button onClick={() => this.handleUpdate(product.id)}>Change Quantity</button>
+          <button type="submit">Change Quantity</button>
+          {this.state.tooManyWarning
+            ? `  This item only has ${product.numInStock} in stock!`
+            : null}
           </form></td>
         </tr>
     )

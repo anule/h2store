@@ -9,6 +9,7 @@ import SingleProductReviews from './SingleProductReviews';
 class SingleProduct extends Component {
   constructor(props){
     super(props);
+    this.state = {alreadyInCartWarning: false}
     this.handleAddClick = this.handleAddClick.bind(this);
   }
 
@@ -22,7 +23,7 @@ class SingleProduct extends Component {
     selectedProduct.numOrdered = 1;
     const alreadyInCart = this.props.cart.products.filter(product => product.id === selectedProduct.id)
     if (alreadyInCart.length > 0) {
-      alert('This product is already in your cart!')
+      this.setState({alreadyInCartWarning: true})
     } else {
     this.props.user.id
     ? this.props.addToCartLoggedIn(selectedProduct)
@@ -51,6 +52,11 @@ class SingleProduct extends Component {
             {(selectedProduct.numInStock < 10 && selectedProduct.numInStock > 0)
               ? `Only ${selectedProduct.numInStock} left - more coming!`
               : null }
+            <br />
+            {this.state.alreadyInCartWarning
+            ? 'This item is already in your cart!'
+            : null}
+            <br />
             <button type="button">See Similar Products</button>
             <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
