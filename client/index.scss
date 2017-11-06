@@ -1,9 +1,5 @@
 // @import 'reset';
 
-/* Sass variables */
-$font-primary: 'Calibre Light', sans-serif;
-$font-emphasis: 'Calibre Regular', sans-serif;
-
 /* Styling guides */
 // div, li, ul {
 //   border: 1px solid black;
@@ -36,15 +32,18 @@ $font-emphasis: 'Calibre Regular', sans-serif;
 
 
 body {
-  font-family: $font-primary;
+  font-family: 'News Cycle', sans-serif;
+  font-weight: 400;
+  font-style: regular;
   // box-sizing: border-box;
   width: 100%;
 }
 
 a {
   text-decoration: none;
-  font-family: $font-primary
-  // color: black;
+  font-family: 'News Cycle', sans-serif;
+  font-weight: 400;
+  font-style: regular;  // color: black;
 }
 a:link {
   color: #000000;
@@ -64,7 +63,7 @@ a:hover {
 /**** Header ****/
 nav {
   @extend footer;
-  font-family: $font-primary;
+  font-family: 'Calibre Light', sans-serif;
   font-weight: 200;
   font-style: normal;
   justify-content: space-between;
@@ -185,7 +184,9 @@ footer {
   height: 50px;
   margin: 15px;
   border-top:0.5px;
-  font-family: $font-primary;
+  font-family: 'News Cycle', sans-serif;
+  font-weight: 400;
+  font-style: regular;
 }
 
 .logo{
