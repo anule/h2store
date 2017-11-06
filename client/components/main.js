@@ -25,7 +25,7 @@ const Main = (props) => {
         </div>
         {
           isLoggedIn
-            ? <div id="login-signup">
+            ? <div className="container" id="login-signup">
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <a href="#" onClick={handleClick}>Logout</a>

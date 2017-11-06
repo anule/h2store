@@ -1,72 +1,71 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchSingleProduct } from '../store/product'
-import { addToCartThunk } from '../store/cart'
-import CategoriesPane from './CategoriesPane'
-import { NavLink } from 'react-router-dom'
-import SingleProductReviews from './SingleProductReviews'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchSingleProduct } from '../store/product';
+import { addToCartThunk } from '../store/cart';
+import CategoriesPane from './CategoriesPane';
+import { NavLink } from 'react-router-dom';
+import SingleProductReviews from './SingleProductReviews';
 
 class SingleProduct extends Component {
   constructor(props){
-    super(props)
+    super(props);
     this.handleAddClick = this.handleAddClick.bind(this);
   }
 
   componentDidMount(){
-    const {id} = this.props.match.params
-    this.props.getProduct(id)
+    const {id} = this.props.match.params;
+    this.props.getProduct(id);
   }
 
   handleAddClick() {
-    console.log(this.props.match.params.id)
+    console.log(this.props.match.params.id);
   }
 
   render(){
 
-    const {selectedProduct} = this.props.product
+    const {selectedProduct} = this.props.product;
     // Come back to similar products section
     if (this.props.products){
-      const { allProducts } = this.props.products
+      const { allProducts } = this.props.products;
     }
     return (
-      <div>
+      <div className="container single-product-container">
         <CategoriesPane />
         {
-          <div>
+          <section id="single-product">
             <h1>{selectedProduct.name}</h1>
-            <img src={selectedProduct.image} alt='Product Image' width='275' height='250'/>
+            <img src={selectedProduct.image} alt="Product Image" width="275" height="250" />
             <h2>{selectedProduct.description}</h2>
             <h3>${selectedProduct.price}</h3>
-            <button type='button' onClick={this.handleAddClick}>Add to Cart</button>
-            <button type='button'>See Similar Products</button>
-            <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
-            <ul>
-              {
-                selectedProduct.reviews && (selectedProduct.reviews.slice(0, 2).map(review => (
-                  <li key={review.id}><span>{review.title}&nbsp;&nbsp;&nbsp;{review.date}</span>
-                  <p>{review.stars}</p>
-                  <p>{review.message}</p>
-                  </li>
-                )))
-              }
-            </ul>
+            <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
+            <button type="button">See Similar Products</button>
             <h3>Recommended Products:</h3>
-          </div>
+          </section>
         }
-      <hr />
+        <section className="reviews-pane">
+        <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
+        {
+          selectedProduct.reviews && (selectedProduct.reviews.slice(0, 2).map(review => (
+            <span key={review.id}><span>{review.title}&nbsp;&nbsp;&nbsp;{review.date}</span>
+            <p>{review.stars}</p>
+            <p>{review.message}</p>
+            </span>
+          )))
+        }
+        </section>
       </div>
-    )
+    );
   }
 }
 
-const mapState = (state) => ({product: state.product, products: state.products})
+const mapState = (state) => ({product: state.product, products: state.products});
 const mapDispatch = dispatch => ({
   getProduct: (id) => {
-    dispatch(fetchSingleProduct(id))
+    dispatch(fetchSingleProduct(id));
   },
   addToCart: (id) => {
-    dispatch(addToCartThunk(id))
+    dispatch(addToCartThunk(id));
   }
-})
+});
 
-export default connect(mapState, mapDispatch)(SingleProduct)
+export default connect(mapState, mapDispatch)(SingleProduct);
