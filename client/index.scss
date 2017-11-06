@@ -67,7 +67,6 @@ nav {
   font-weight: 200;
   font-style: normal;
   justify-content: space-between;
-  width: 100%;
   align-items: center;
   a {
     display: inline-block;
@@ -140,10 +139,12 @@ label {
   }
 }
 
+/* Picture slideshow styling */
 #carousel {
   max-width: 100%;
 }
 
+/* Mission statement */
 #mission {
   text-align: center;
   font-family: 'Open Sans Condensed';
@@ -156,9 +157,11 @@ label {
   }
 }
 
-#best-sellers {
-  text-align: center;
-}
+// #best-sellers {
+//   text-align: center;
+// }
+
+/* h2store difference*/
 #store-difference {
   padding-top: 25px;
   h1 {
@@ -189,7 +192,7 @@ footer {
   font-style: regular;
 }
 
-.logo{
+.logo {
   height: 2em;
 }
 

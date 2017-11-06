@@ -17,10 +17,10 @@ const Homepage = () => {
         <p>For each product purchased, we will donate 12oz of water to an orphan or a very thirsty bird.</p>
       </section>
 
-      <section id="best-sellers">
+  {/* <section id="best-sellers">
         <h2>Best Sellers</h2>
         <BestSellers />
-      </section>
+      </section> */}
 
       <section id="store-difference">
         <h2>The h2Store Difference</h2>
