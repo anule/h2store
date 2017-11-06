@@ -11,20 +11,4 @@ const TransactionsProducts = db.define('transactions-products', {
   }
 })
 
-TransactionsProducts.addHook('afterUpdate',
-  TransactionsProducts.destroy({
-    where: {
-      numOrdered: 0
-    }
-  })
-);
-
-TransactionsProducts.addHook('afterCreate',
-  TransactionsProducts.destroy({
-    where: {
-      numOrdered: 0
-    }
-  })
-);
-
 module.exports = TransactionsProducts;
