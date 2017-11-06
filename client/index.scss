@@ -1,4 +1,4 @@
-@import 'reset';
+// @import 'reset';
 
 /* Sass variables */
 $font-primary: 'Calibre Light', sans-serif;
@@ -10,10 +10,30 @@ $font-emphasis: 'Calibre Regular', sans-serif;
 // }
 
 /* General styling */
-// html {
-//   font-family:$font-primary;
-//   font-size: 16px;
-// }
+
+/* latin */
+@font-face {
+  font-family: 'News Cycle';
+  font-style: normal;
+  font-weight: 400;
+  src: local('News Cycle'), local('NewsCycle'), url(https://fonts.gstatic.com/s/newscycle/v14/9Xe8dq6pQDsPyVH2D3tMQgzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'News Cycle';
+  font-style: normal;
+  font-weight: 700;
+  src: local('News Cycle Bold'), local('NewsCycle-Bold'), url(https://fonts.gstatic.com/s/newscycle/v14/G28Ny31cr5orMqEQy6ljt2aVI6zN22yiurzcBKxPjFE.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'Raleway Dots';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway Dots'), local('RalewayDots-Regular'), url(https://fonts.gstatic.com/s/ralewaydots/v5/lhLgmWCRcyz-QXo8LCzTfBampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
 
 body {
   font-family: $font-primary;
@@ -108,9 +128,10 @@ label {
 }
 
 
-/* Homepage */
+/**** HOMEPAGE COMPONENT ****/
 .homepage {
   align-items: center;
+  width: 100%;
 
   section {
     text-align: center;
@@ -119,19 +140,40 @@ label {
     border-bottom: 1px solid black;
   }
 }
+
+#carousel {
+  max-width: 100%;
+}
+
 #mission {
   text-align: center;
+  font-family: 'Open Sans Condensed';
+  font-style: italic;
+  font-weight: 300;
+  font-size: 20px;
+  background-color: hsla(171, 10%, 74%, 0.753);
+  h2 {
+    font-style: normal;
+  }
 }
+
 #best-sellers {
   text-align: center;
+}
+#store-difference {
+  padding-top: 25px;
+  h1 {
+    margin-bottom: 25px;
+  }
+}
+#differences {
   display: flex;
   justify-content: space-around;
-}
-#our-difference {
-  display: flex;
+  background-color: hsla(166, 25%, 90%, 0.753);
   .difference {
     text-align: center;
     width: 30%;
+    border: 1.5px dotted #808080;
   }
 }
 
