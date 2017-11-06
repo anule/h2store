@@ -4,11 +4,10 @@ import { Router } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {
-  Main, Login, Signup, UserHome, Homepage, Footer,
-  AllProducts, SingleCategory, SingleProduct, Cart, SingleProductReviews, ProfileUpdate
-} from './components'
-import { me, getCart } from './store'
+import {Main, Login, Signup, UserHome, Homepage, Footer,
+  AllProducts, SingleCategory, SingleProduct, Cart,
+  SingleProductReviews, WriteReview, ProfileUpdate} from './components'
+import {me, getCart} from './store'
 
 /**
  * COMPONENT
@@ -34,8 +33,13 @@ class Routes extends Component {
               <Route exact path="/" component={Homepage} />
               <Route exact path="/products" component={AllProducts} />
               <Route exact path="/products/:id" component={SingleProduct} />
+<<<<<<< HEAD
+              <Route exact path="/products/:id/reviews" component={SingleProductReviews} />
+              <Route path="/products/:id/review" component={WriteReview} />
+=======
               <Route path="/products/:id/reviews" component={SingleProductReviews} />
               <Route path="/:id/update" component={ProfileUpdate} />
+>>>>>>> master
               <Route path="/categories/:id" component={SingleCategory} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
