@@ -10,10 +10,10 @@ $font-emphasis: 'Calibre Regular', sans-serif;
 // }
 
 /* General styling */
-html {
-  font-family:$font-primary;
-  font-size: 16px;
-}
+// html {
+//   font-family:$font-primary;
+//   font-size: 16px;
+// }
 
 body {
   font-family: $font-primary;
@@ -111,7 +111,30 @@ label {
 /* Homepage */
 .homepage {
   align-items: center;
+
+  section {
+    text-align: center;
+    padding: 50px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
 }
+#mission {
+  text-align: center;
+}
+#best-sellers {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
+#our-difference {
+  display: flex;
+  .difference {
+    text-align: center;
+    width: 30%;
+  }
+}
+
 
 footer {
   justify-content: space-around;
@@ -119,7 +142,8 @@ footer {
   align-items: center;
   height: 50px;
   margin: 15px;
-  border-top:0.5xp
+  border-top:0.5px;
+  font-family: $font-primary;
 }
 
 .logo{
