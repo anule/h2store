@@ -34,7 +34,7 @@ class AllProducts extends Component {
           />
         </form>
         <ul className="products">
-        <CategoriesPane />
+        <CategoriesPane /> {/* TODO: this shouldn't be in the ul element */}
         {filterProducts.map(product => {
           return <li key={product.id}><Link to={`/products/${product.id}`}>{product.name}</Link></li>
         })}

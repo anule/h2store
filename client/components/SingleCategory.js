@@ -5,10 +5,6 @@ import { NavLink } from 'react-router-dom';
 import { fetchSingleCategory } from '../store/category';
 
 class SingleCategory extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     const { id } = this.props.match.params
     this.props.getCategoryProducts(id);

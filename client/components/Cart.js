@@ -12,11 +12,11 @@ class Cart extends Component {
   }
 
   componentDidMount(){
-    this.props.user.id
-    ? this.props.cart.transactionId
-        ? this.props.getCartLoggedIn()
-        : this.props.getCartLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
-    : this.props.getCartNotLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
+    if (this.props.user.id && this.props.cart.transactionId) {
+      this.props.getCartLoggedIn()
+    } else {
+      this.props.getCartLoggedIn(JSON.parse(sessionStorage.getItem('cart'))) // TODO: make different thunk that creates cart
+    }
   }
 
   clearCart(transactionId){
@@ -32,6 +32,8 @@ class Cart extends Component {
   render(){
     let total = 0;
     const numToDollarsCents = num => (parseFloat(num).toFixed(2))
+    if (this.props.cart.products) this.props.cart.products.forEach(product => total += product.numOrdered * +product.price);
+
     return (
       <div>
         <table>
@@ -43,7 +45,6 @@ class Cart extends Component {
             <th>Quantity</th>
             <th>Subtotal</th>
           </tr>
-          {this.props.cart.products && this.props.cart.products.map(product => {total += product.numOrdered * +product.price})}
         {this.props.cart.products.map(product =>
           <ProductInCart key={product.id} product={product} />
       )}
@@ -60,19 +61,15 @@ const mapStateToProps = ({ user, cart }) => ({ user, cart });
 const mapDispatchToProps = dispatch => ({
   getCartLoggedIn: cart => {
     dispatch(getCartThunk(cart));
-    console.log('getCartLoggedIn')
   },
   getCartNotLoggedIn: cart => {
     dispatch(getCart(cart))
-    console.log('getCartNotLoggedIn')
   },
   emptyCartLoggedIn: (transactionId) => {
     dispatch(emptyCartThunk(transactionId));
-    console.log('emptyCartLoggedIn')
   },
   emptyCartNotLoggedIn: (transactionId) => {
     dispatch(emptyCart(transactionId));
-    console.log('emptyCartNotLoggedIn')
   }
 })
 

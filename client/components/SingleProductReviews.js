@@ -5,10 +5,6 @@ import { NavLink } from 'react-router-dom'
 
 
 class SingleProductReviews extends Component {
-  constructor(props){
-    super(props)
-  }
-
   componentDidMount(){
     const {id} = this.props.match.params
     this.props.getProduct(id)

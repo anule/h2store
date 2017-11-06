@@ -10,7 +10,6 @@ class WriteReview extends Component {
       redirect: false,
       submitVisible: false
     }
-
   }
 
   componentDidMount(){
@@ -37,6 +36,9 @@ class WriteReview extends Component {
       alert('Please populate all fields in the Review form.')
     } else {
       this.props.handleSubmit(review, evt)
+      // TODO: refactor to use history object instead of the redirect component
+      // import history from '../history'
+      // history.push(`/products/${productId}/reviews`)
       this.setState({redirect: true})
     }
   }
@@ -98,6 +100,7 @@ class WriteReview extends Component {
 
 const mapState = (state) => {
   return {
+    // TODO: don't need both the product and the productId
     productId: state.product.selectedProduct.id,
     product: state.product.selectedProduct,
     review: state.review,

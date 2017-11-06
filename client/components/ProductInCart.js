@@ -22,13 +22,16 @@ class ProductInCart extends Component {
 
   handleChange(event){
     event.preventDefault();
-    this.setState({quantity: event.target.value});
-    if (event.target.value > this.props.product.numInStock){
-      this.setState({tooManyWarning: true})
+    const desiredQuantity = event.target.value;
+    {/* TODO: setState once */}
+    const newState = { quantity: desiredQuantity };
+    if (desiredQuantity > this.props.product.numInStock){
+      newState.tooManyWarning = true;
     } else {
-      this.setState({tooManyWarning: false})
+      newState.tooManyWarning = false;
     }
-    console.log('triggered handleChange', event.target.value)
+
+    this.setState(newState);
   }
 
   handleUpdate(event){
@@ -36,15 +39,13 @@ class ProductInCart extends Component {
     const { numInStock, id, transactionId } = this.props.product;
     if (Number(this.state.quantity) === 0){
       this.handleDelete(id, this.props.cart.transactionId)
-      return
+    } else if (this.state.quantity > numInStock){
+    this.setState({tooManyWarning: true})
+    } else {
+      this.props.user.id
+      ? this.props.updateQuantityInCartLoggedIn(id, transactionId, Number(this.state.quantity))
+      : this.props.updateQuantityInCartNotLoggedIn(id, this.state.quantity)
     }
-    if (this.state.quantity > numInStock){
-      this.setState({tooManyWarning: true})
-      return
-    }
-    this.props.user.id
-    ? this.props.updateQuantityInCartLoggedIn(id, transactionId, Number(this.state.quantity))
-    : this.props.updateQuantityInCartNotLoggedIn(id, this.state.quantity)
   }
 
   render(){
@@ -79,11 +80,9 @@ const mapStateToProps = ({ user, cart }) => ({ user, cart });
 const mapDispatchToProps = dispatch => ({
   removeItemFromCartLoggedIn: (productId, transactionId) => {
     dispatch(deleteFromCartThunk(productId, transactionId));
-    console.log('removeItemFromCartLoggedIn')
   },
   removeItemFromCartNotLoggedIn: (productId) => {
     dispatch(deleteFromCart(productId));
-    console.log('removeItemFromCartNotLoggedIn')
   },
   updateQuantityInCartLoggedIn: (productId, transactionId, quantity) => {
     dispatch(updateQuantityInCartThunk(productId, transactionId, quantity))

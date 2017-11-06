@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import { fetchCategories } from '../store/category';
 
 class CategoriesPane extends Component {
-  constructor(){
-    super()
-  }
-
   componentDidMount(){
     this.props.getCategories();
   }

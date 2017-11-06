@@ -31,7 +31,8 @@ export const addToCartThunk = product =>
 export const getCartThunk = cart =>
 dispatch =>
   axios.get('/api/cart')
-    .then(res => {
+    .then(res => res.data)
+    .then(([cart, isCreated]) => { // TODO: continue refactoring here
       return res.data[1]
       ? {transactionId: res.data[0].id,
         products: cart.products}

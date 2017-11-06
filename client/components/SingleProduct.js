@@ -32,7 +32,7 @@ class SingleProduct extends Component {
   }
 
   render(){
-    sessionStorage.setItem('cart', JSON.stringify(this.props.cart));
+    sessionStorage.setItem('cart', JSON.stringify(this.props.cart)); // TODO: move to componentWillReceiveProps
     console.log('session storage', sessionStorage.getItem('cart'))
     const {selectedProduct} = this.props.product;
     // Come back to similar products section
@@ -57,7 +57,6 @@ class SingleProduct extends Component {
             ? 'This item is already in your cart!'
             : null}
             <br />
-            <button type="button">See Similar Products</button>
             <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
             <ul>
@@ -73,7 +72,7 @@ class SingleProduct extends Component {
                 )))
               }
             </ul>
-            <h3>Recommended Products:</h3>
+            <h3>Recommended Products:</h3> {/* TODO: keep placeholder elements off master */}
           </div>
         }
       <hr />
@@ -88,11 +87,9 @@ const mapDispatch = dispatch => ({
     dispatch(fetchSingleProduct(id));
   },
   addToCartLoggedIn: (product) => {
-    console.log('addToCartLoggedIn')
     dispatch(addToCartThunk(product));
   },
   addToCartNotLoggedIn: (product) => {
-    console.log('addToCartNotLoggedIn');
     dispatch(addToCart(product));
   }
 });
