@@ -30,13 +30,9 @@ router.get('/:id/orders', (req, res, next) => {
   User.findOne({
     where: {
       id: req.params.id
-    }, include: {model: Transaction}
+    }, include: {model: Transaction, include: [{all: true}]}
   })
   .then(user =>
-    {
-      res.json(user)
-      
-    }
-    )
+    {res.json(user)})
   .catch(next)
 })

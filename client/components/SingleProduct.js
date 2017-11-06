@@ -75,7 +75,6 @@ class SingleProduct extends Component {
             </ul>
             <Link to={`/products/${selectedProduct.id}/reviews`}><button>Read All Reviews</button></Link>
             <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
-            <h3>Recommended Products:</h3>
           </div>
         }
       <hr />

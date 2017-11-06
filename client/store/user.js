@@ -51,8 +51,14 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const fetchSingleUser = (id) =>
+  dispatch =>
+    axios.get(`/api/users/${id}/orders`)
+      .then(res => dispatch(getUser(res.data)))
+      .catch(err => console.error('Could not fetch user', err))
+
 export const updateUserProfile = (id, user) => dispatch => {
-  axios.put(`/api/users/${id}`, user)
+  axios.put(`/api/${id}`, user)
     .then(res => dispatch(updateUser(res.data)))
     .catch(err => console.error(`Could not update ${user}!`, err));
 }
