@@ -24,7 +24,7 @@ export function postReview (review) {
 
 export function removePost (review) {
   return function thunk (dispatch) {
-    return axios.delete(`api/products/${review.productId}/reviews/${review.id}`, review)
+    return axios.delete(`/api/products/${review.productId}/reviews/${review.id}`, review)
       .then(res => dispatch(deleteReview(res.data)))
       .catch(err => console.error('Issue removing review', err))
   }
