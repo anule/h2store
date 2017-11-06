@@ -7,7 +7,8 @@ class WriteReview extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      redirect: false
+      redirect: false,
+      submitVisible: false
     }
 
   }
@@ -19,6 +20,11 @@ class WriteReview extends Component {
     this.handleRedirect = this.handleRedirect.bind(this)
   }
 
+  componentWillReceiveProps(nextProps){
+    if (this.props.userId !== nextProps.userId && nextProps.userId) {
+      this.setState({submitVisible: true})
+    }
+  }
 
   handleChange (event) {
     this.props.review[event.target.name] = event.target.value
@@ -26,13 +32,18 @@ class WriteReview extends Component {
   }
 
   handleRedirect (review, evt) {
-    this.props.handleSubmit(review, evt)
-    this.setState({redirect: true})
-
+    if (!this.props.review.title || !this.props.review.stars || !this.props.review.message){
+      evt.preventDefault()
+      alert('Please populate all fields in the Review form.')
+    } else {
+      this.props.handleSubmit(review, evt)
+      this.setState({redirect: true})
+    }
   }
 
+
   render (){
-    const {review, handleSubmit, productId, product, userId} = this.props
+    const {review, productId, product, userId} = this.props
     const { redirect } = this.state
     review.productId = productId
     review.userId = userId
@@ -40,6 +51,7 @@ class WriteReview extends Component {
     if (redirect) {
       return <Redirect to={`/products/${productId}/reviews`} />
     }
+
     return (
       <div>
         <h3>{product.name}</h3>
@@ -68,9 +80,15 @@ class WriteReview extends Component {
               name="message"
               onChange={this.handleChange}
             />
+          {
+            this.state.submitVisible ?
             <button type="submit">
                 Submit
-              </button>
+              </button> :
+              <button type="submit" disabled>
+                  Submit
+                </button>
+          }
         </form>
         <hr />
       </div>
