@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import CategoriesPane from './CategoriesPane';
 import { NavLink } from 'react-router-dom';
 import { fetchSingleCategory } from '../store/category';
+import { NavLink } from 'react-router-dom'
 
 class SingleCategory extends Component {
   constructor(props){

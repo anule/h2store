@@ -52,6 +52,7 @@ class SingleProduct extends Component {
               ? `Only ${selectedProduct.numInStock} left - more coming!`
               : null }
             <button type="button">See Similar Products</button>
+            <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
             <ul>
               {selectedProduct.reviews && `Average rating = ${
