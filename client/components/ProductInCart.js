@@ -11,7 +11,7 @@ class ProductInCart extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
-    this.state = {quantity: 0};
+    this.state = {quantity: 0, tooManyWarning: false};
   }
 
   handleDelete(productId, transactionId){
@@ -34,7 +34,7 @@ class ProductInCart extends Component {
       return
     }
     if (this.state.quantity > numInStock){
-      alert(`There are only ${numInStock} of this item in stock!`)
+      this.setState({tooManyWarning: true})
       return
     }
     this.props.user.id
