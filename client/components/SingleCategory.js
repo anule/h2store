@@ -1,22 +1,23 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import CategoriesPane from './CategoriesPane';
 import { NavLink } from 'react-router-dom';
 import { fetchSingleCategory } from '../store/category';
 
 class SingleCategory extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { id } = this.props.match.params
     this.props.getCategoryProducts(id);
   }
 
-  componentWillReceiveProps (newProps) {
-    if (newProps.match.params.id !== this.props.match.params.id){
-      this.props.getCategoryProducts(newProps.match.params.id)}
+  componentWillReceiveProps(newProps) {
+    if (newProps.match.params.id !== this.props.match.params.id) {
+      this.props.getCategoryProducts(newProps.match.params.id)
+    }
 
   }
 
@@ -27,18 +28,18 @@ class SingleCategory extends Component {
       <div>
         <CategoriesPane />
         {<div>
-         <h1>{selectedCategory.name}</h1>
-         <h2>{selectedCategory.description}</h2>
+          <h1>{selectedCategory.name}</h1>
+          <h2>{selectedCategory.description}</h2>
         </div>
         }
         {selectedCategory.products
-        ? selectedCategory.products.map(product => {
-          return (<li key={product.id}>
-                  <NavLink to={`/products/${product.id}/`}>{product.name}</NavLink><br />
-                  Price:{product.price}<br />
-                  {product.description}</li>)
-        })
-        : null }
+          ? selectedCategory.products.map(product => {
+            return (<li key={product.id}>
+              <NavLink to={`/products/${product.id}/`}>{product.name}</NavLink><br />
+              Price:{product.price}<br />
+              {product.description}</li>)
+          })
+          : null}
         <hr />
       </div>
     )
