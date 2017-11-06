@@ -14,7 +14,6 @@ class AllProducts extends Component {
   }
 
   render() {
-    console.log('hello this is allproducts');
     return (
       <div className="container product-container">
         <CategoriesPane />
@@ -32,7 +31,6 @@ class AllProducts extends Component {
               </span>);
           })}
         </div>
-        <hr />
       </div>
 
     );

@@ -1,13 +1,11 @@
-/* smartphone width */
-@media only screen and (max-width: 420px) {
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    height: 165px;
-    margin: 0;
-    padding-bottom: 0;
-    #login-signup {
-      flex-direction: row;
-    }
+/**** HEADER ****/
+nav {
+  flex-wrap: wrap;
+  height: 150px;
+  margin: 0;
+  padding-bottom: 0;
+  #login-signup {
+    flex-direction: row;
   }
 }
+

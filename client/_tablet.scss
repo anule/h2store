@@ -1,6 +1,11 @@
 /* tablet width */
-@media only screen and (max-width: 800px) {
-  .product-container {
-    width: 100%;
-  }
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  height: 150px;
+  margin: 0;
+  padding-bottom: 0;
+}
+.product-container {
+  width: 100%;
 }
