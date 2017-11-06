@@ -14,7 +14,6 @@ class AllProducts extends Component {
   }
 
   render() {
-    console.log('hello this is allproducts')
     return (
       <div>
         <ul className="products">
@@ -29,6 +28,16 @@ class AllProducts extends Component {
     )
   }
 }
+
+{/* <form className='form-group' style={{marginTop: '20px'}}>
+      <input
+        onChange={handleChange}
+        value={inputValue}
+        className='form-control'
+        placeholder="Enter artist name"
+      />
+    </form> */}
+
 
 const mapStateToProps = ({product}) => ({product})
 const mapDispatchToProps = (dispatch) => ({
