@@ -1,4 +1,6 @@
 // @import 'reset';
+@import 'tablet';
+@import 'smartphone';
 
 /* Styling guides */
 // div, li, ul {
@@ -73,7 +75,9 @@ nav {
     margin: 1em;
   }
 }
-
+.logo {
+  height: 2em;
+}
 
 /**** Auth-form ****/
 form div {
@@ -85,8 +89,7 @@ label {
   display: block;
 }
 
-/**** ALL PRODUCTS COMPONENT ****/
-/* Categories Pane */
+/**** CATEGORIES PANE COMPONENT ****/
 .left-pane {
   width: 25%;
   font-size: 20px;
@@ -102,14 +105,21 @@ label {
 }
 
 
+/**** ALL PRODUCTS COMPONENT ****/
 /* All categories flexbox */
+.product-container {
+  width: 70%;
+  margin: auto;
+}
+
+
 #products-pane {
   @extend .container;
   float: left;
   position: relative;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 100%;
+  max-width: 70%;
 }
 
 .product-preview {
@@ -180,6 +190,8 @@ label {
 }
 
 
+/**** FOOTER COMPONENT ****/
+
 footer {
   justify-content: space-around;
   width: 100%;
@@ -192,8 +204,7 @@ footer {
   font-style: regular;
 }
 
-.logo {
-  height: 2em;
-}
+/**** MEDIA QUERIES ****/
+
 
 
