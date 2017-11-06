@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store/product';
 import { addToCartThunk, addToCart } from '../store/cart';
 import CategoriesPane from './CategoriesPane';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import SingleProductReviews from './SingleProductReviews';
 
 class SingleProduct extends Component {
@@ -53,7 +53,7 @@ class SingleProduct extends Component {
               : null }
             <button type="button">See Similar Products</button>
             <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
-            <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
+            <h3>Product Reviews:</h3>
             <ul>
               {selectedProduct.reviews && `Average rating = ${
                 parseFloat(selectedProduct.reviews.reduce(function(sum, value) {
@@ -67,6 +67,8 @@ class SingleProduct extends Component {
                 )))
               }
             </ul>
+            <Link to={`/products/${selectedProduct.id}/reviews`}><button>Read All Reviews</button></Link>
+            <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
             <h3>Recommended Products:</h3>
           </div>
         }

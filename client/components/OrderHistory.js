@@ -11,7 +11,7 @@ function orderHistory (props){
 const mapState = (state) => {
   return {
     userId: state.user.id
-    product: state.product.sele
+    // product: state.product.sele
   }
 }
 

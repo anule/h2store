@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 
 class SingleProductReviews extends Component {
@@ -29,8 +29,8 @@ class SingleProductReviews extends Component {
           )))
         }
       </ul>
-      <button><NavLink to={`/products/${selectedProduct.id}`}>Back to Product Page </NavLink>
-      </button>
+      <Link to={`/products/${selectedProduct.id}`}><button>Back to Product Page</button></Link>
+      <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
       </div>
     )
   }

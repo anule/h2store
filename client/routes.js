@@ -33,14 +33,10 @@ class Routes extends Component {
               <Route exact path="/" component={Homepage} />
               <Route exact path="/products" component={AllProducts} />
               <Route exact path="/products/:id" component={SingleProduct} />
-<<<<<<< HEAD
               <Route exact path="/products/:id/reviews" component={SingleProductReviews} />
               <Route path="/products/:id/review" component={WriteReview} />
-=======
-              <Route path="/products/:id/reviews" component={SingleProductReviews} />
-              <Route path="/:id/update" component={ProfileUpdate} />
->>>>>>> master
               <Route path="/categories/:id" component={SingleCategory} />
+              <Route path="/:id/update" component={ProfileUpdate} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/cart" component={Cart} />
