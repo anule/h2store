@@ -35,10 +35,8 @@ class WriteReview extends Component {
       evt.preventDefault()
       alert('Please populate all fields in the Review form.')
     } else {
-      // this.setState({allFieldsPopulated: true})
       this.props.handleSubmit(review, evt)
       this.setState({redirect: true})
-      // this.props.review = ''
     }
   }
 
@@ -46,8 +44,10 @@ class WriteReview extends Component {
   render (){
     const {review, productId, product, userId} = this.props
     const { redirect } = this.state
-    review.productId = productId
-    review.userId = userId
+    if (productId && userId){
+      review.productId = productId
+      review.userId = userId
+    }
 
     if (redirect) {
       return <Redirect to={`/products/${productId}/reviews`} />
@@ -121,6 +121,7 @@ const mapDispatch = function (dispatch) {
     handleSubmit (review, evt) {
       evt.preventDefault()
       dispatch(postReview(review))
+      dispatch(createReview({}))
     },
     newReview (newreview) {
       dispatch(createReview(newreview))
