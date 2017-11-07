@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, Homepage, Footer,
   AllProducts, SingleCategory, SingleProduct, Cart,
-  SingleProductReviews, WriteReview, ProfileUpdate, OrderHistory} from './components'
-import {me, getCart} from './store'
+  SingleProductReviews, WriteReview, ProfileUpdate, OrderHistory} from './components';
+import {me, getCart} from './store';
 
 /**
  * COMPONENT
@@ -16,7 +16,6 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
     if (!this.props.isLoggedIn) {
-      console.log(JSON.parse(localStorage.getItem('cart')))
       getCart(JSON.parse(localStorage.getItem('cart')))
     }
 
