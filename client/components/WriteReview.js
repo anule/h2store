@@ -48,8 +48,6 @@ class WriteReview extends Component {
     const { redirect } = this.state
     review.productId = productId
     review.userId = userId
-    console.log(userId)
-    console.log(this.state.submitVisible)
 
     if (redirect) {
       return <Redirect to={`/products/${productId}/reviews`} />
