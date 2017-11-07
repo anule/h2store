@@ -85,7 +85,7 @@ class SingleProduct extends Component {
   }
 }
 
-const mapState = (state) => ({product: state.product, products: state.products});
+const mapState = ({product, products, cart, user}) => ({product, products, cart, user});
 const mapDispatch = dispatch => ({
   getProduct: (id) => {
     dispatch(fetchSingleProduct(id));
