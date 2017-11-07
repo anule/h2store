@@ -1,6 +1,4 @@
 @import 'reset';
-@import 'tablet';
-@import 'smartphone';
 
 /* Styling guides */
 // div, li, ul {
@@ -32,7 +30,9 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
-
+html {
+  min-height: 100%;
+}
 body {
   font-family: 'News Cycle', sans-serif;
   font-weight: 400;
@@ -60,19 +60,20 @@ a:hover {
 
 .container {
   display: flex;
-  padding: 0;
 }
 
 /**** MAIN COMPONENT ****/
 /**** Header ****/
 nav {
-  @extend footer;
   background-color: #ffffff;
   font-family: 'Calibre Light', sans-serif;
   font-weight: 200;
   font-style: normal;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 15px;
   a {
     display: inline-block;
     margin: 1em;
@@ -174,58 +175,58 @@ label {
   font-style: italic;
   font-weight: 300;
   font-size: 20px;
-  background-color: hsla(171, 10%, 74%, 0.753);
+  background-color: hsla(174, 46%, 75%, 0.863);
   h2 {
     font-style: normal;
   }
 }
 
 // #best-sellers {
-//   text-align: center;
-// }
+  //   text-align: center;
+  // }
 
-/* h2store difference*/
-#store-difference {
-  padding-top: 25px;
-  h1 {
-    margin-bottom: 25px;
+  /* h2store difference*/
+  #store-difference {
+    padding-top: 25px;
+    h1 {
+      margin-bottom: 25px;
+    }
   }
-}
-#differences {
-  display: flex;
-  justify-content: space-around;
-  .difference {
-    text-align: center;
-    width: 30%;
-    border: 1.5px dotted #808080;
+  #differences {
+    display: flex;
+    justify-content: space-around;
+    .difference {
+      text-align: center;
+      width: 30%;
+      border: 1.5px dotted #808080;
+    }
   }
-}
 
 
 
-/**** FOOTER COMPONENT ****/
+  /**** FOOTER COMPONENT ****/
 
-footer {
-  background-color: hsla(166, 25%, 90%, 0.753);
-  justify-content: space-around;
-  width: 100%;
-  align-items: center;
-  height: 50px;
-  padding: 15px;
-  border-top:0.5px;
-  font-family: 'News Cycle', sans-serif;
-  font-weight: 400;
-  font-style: regular;
-  bottom: 0;
-}
+  footer {
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    margin: auto;
+    padding: 50px 0;
+    border-top:0.5px;
+    font-family: 'News Cycle', sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    bottom: 0;
+    background-color: hsla(171, 10%, 74%, 0.753);
+  }
 
-/**** MEDIA QUERIES ****/
-/* tablet width */
-@media only screen and (max-width: 1000px) {
-  @import 'tablet';
-}
+  /**** MEDIA QUERIES ****/
+  /* tablet width */
+  @media only screen and (max-width: 1000px) {
+    @import 'tablet';
+  }
 
-/* cellphone width */
-@media only screen and (max-width: 420px) {
-  @import 'smartphone';
-}
+  /* cellphone width */
+  @media only screen and (max-width: 420px) {
+    @import 'smartphone';
+  }

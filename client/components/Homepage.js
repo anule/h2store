@@ -6,10 +6,10 @@ const Homepage = () => {
     <div className="homepage">
 
       <section id="carousel">
-        <img className="carousel-image" src="images/colorado-waterfall.jpg" />
-        <img className="carousel-image hidden" src="images/lake-victoria.jpg" />
-        <img className="carousel-image hidden" src="images/zambian-kids-clean-water.jpg" />
-        <img className="carousel-image hidden" src="images/diving-penguins.jpg" />
+        <img className="carousel-image" src="images/carousel/colorado-waterfall.jpg" />
+        <img className="carousel-image hidden" src="images/carousel/lake-victoria.jpg" />
+        <img className="carousel-image hidden" src="images/carousel/zambian-kids-clean-water.jpg" />
+        <img className="carousel-image hidden" src="images/carousel/diving-penguins.jpg" />
       </section>
 
       <section id="mission">
