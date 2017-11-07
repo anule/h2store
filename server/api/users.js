@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-  User.findById(req.params.id)
+  User.findById(req.params.id, {attributes: ['id', 'email', 'isAdmin']})
     .then(user => res.json(user))
     .catch(next)
 })
