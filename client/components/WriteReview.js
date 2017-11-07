@@ -8,7 +8,8 @@ class WriteReview extends Component {
     super(props)
     this.state = {
       redirect: false,
-      submitVisible: false
+      submitVisible: false,
+      allFieldsPopulated: false,
     }
 
   }
@@ -18,10 +19,8 @@ class WriteReview extends Component {
     this.props.getProduct(id)
     this.handleChange = this.handleChange.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
-  }
 
-  componentWillReceiveProps(nextProps){
-    if (this.props.userId !== nextProps.userId && nextProps.userId) {
+    if (this.props.userId) {
       this.setState({submitVisible: true})
     }
   }
@@ -45,8 +44,10 @@ class WriteReview extends Component {
   render (){
     const {review, productId, product, userId} = this.props
     const { redirect } = this.state
-    review.productId = productId
-    review.userId = userId
+    if (productId && userId){
+      review.productId = productId
+      review.userId = userId
+    }
 
     if (redirect) {
       return <Redirect to={`/products/${productId}/reviews`} />
@@ -81,6 +82,13 @@ class WriteReview extends Component {
               onChange={this.handleChange}
             />
           {
+            this.state.allFieldsPopulated ?
+            null :
+            <div>
+              Please complete all fields before submitting.
+            </div>
+          }
+          {
             this.state.submitVisible ?
             <button type="submit">
                 Submit
@@ -113,6 +121,7 @@ const mapDispatch = function (dispatch) {
     handleSubmit (review, evt) {
       evt.preventDefault()
       dispatch(postReview(review))
+      dispatch(createReview({}))
     },
     newReview (newreview) {
       dispatch(createReview(newreview))

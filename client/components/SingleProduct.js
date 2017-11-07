@@ -3,19 +3,23 @@ import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store/product';
 import { addToCartThunk, addToCart } from '../store/cart';
 import CategoriesPane from './CategoriesPane';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import SingleProductReviews from './SingleProductReviews';
 
 class SingleProduct extends Component {
   constructor(props){
     super(props);
-    this.state = {alreadyInCartWarning: false}
+    this.state = {alreadyInCartWarning: false, reviewVisible: false}
     this.handleAddClick = this.handleAddClick.bind(this);
   }
 
   componentDidMount(){
     const {id} = this.props.match.params;
     this.props.getProduct(id);
+
+    if (this.props.user.id) {
+      this.setState({reviewVisible: true})
+    }
   }
 
   handleAddClick() {
@@ -59,7 +63,7 @@ class SingleProduct extends Component {
             <br />
             <button type="button">See Similar Products</button>
             <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
-            <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
+            <h3>Product Reviews:</h3>
             <ul>
               {selectedProduct.reviews && `Average rating = ${
                 parseFloat(selectedProduct.reviews.reduce(function(sum, value) {
@@ -73,7 +77,12 @@ class SingleProduct extends Component {
                 )))
               }
             </ul>
-            <h3>Recommended Products:</h3>
+            <Link to={`/products/${selectedProduct.id}/reviews`}><button>Read All Reviews</button></Link>
+            {
+              this.state.reviewVisible ?
+              <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
+                : <button disabled>Write a Review</button>
+            }
           </div>
         }
       <hr />
