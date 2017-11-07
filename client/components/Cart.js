@@ -24,6 +24,7 @@ class Cart extends Component {
 
   clearCart(transactionId){
     this.props.clearCart(transactionId);
+  }
 
   componentDidUpdate(){
     localStorage.setItem('cart', JSON.stringify(this.props.cart));
