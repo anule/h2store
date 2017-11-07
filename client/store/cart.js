@@ -74,7 +74,7 @@ export const emptyCartThunk = transactionId =>
 export default function (state = {transactionId: 0, products: []}, action) {
   switch (action.type) {
     case GET_CART:
-      return {...state, transactionId: action.cart.transactionId, products: action.cart.products}
+      return { ...state, transactionId: action.cart && action.cart.transactionId, products: action.cart ? action.cart.products : [] }
     case ADD_TO_CART:
       return {...state, products: state.products.concat(action.product)}
     case DELETE_FROM_CART:

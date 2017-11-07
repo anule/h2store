@@ -10,17 +10,24 @@ class Cart extends Component {
   }
 
   componentDidMount(){
-    this.props.user
-    ? this.props.getCart()
-    : this.props.cart = sessionStorage;
+    this.props.user.id
+    ? this.props.cart.transactionId
+        ? this.props.getCartLoggedIn()
+        : this.props.getCartLoggedIn(JSON.parse(localStorage.getItem('cart')))
+    : this.props.getCartNotLoggedIn(JSON.parse(localStorage.getItem('cart')))
   }
 
   handleDelete(productId, transactionId){
     this.props.removeItemFromCart(productId, transactionId);
   }
 
+
   clearCart(transactionId){
     this.props.clearCart(transactionId);
+
+  componentDidUpdate(){
+    localStorage.setItem('cart', JSON.stringify(this.props.cart));
+
   }
 
   render(){

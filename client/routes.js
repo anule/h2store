@@ -15,6 +15,11 @@ import {me, getCart} from './store'
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
+    if (!this.props.isLoggedIn) {
+      console.log(JSON.parse(localStorage.getItem('cart')))
+      getCart(JSON.parse(localStorage.getItem('cart')))
+    }
+
   }
 
   render () {
