@@ -1,93 +1,110 @@
 /* global describe beforeEach it */
 
-/*const {expect} = require('chai')
+
+const { expect } = require('chai')
 const db = require('../index')
-const User = db.model('user')
+const User = db.model('user');
 
 describe('User model', () => {
   beforeEach(() => {
-    return db.sync({force: true})
+    return db.sync({ force: true })
   })
 
-  describe('User model attributes', () => {
-    let savedUser
+  it('has many transactions and reviews', () => {
+    expect(User.associations).to.have.property('transactions')
+    expect(User.associations).to.have.property('reviews')
+    expect(User.associations.transactions.associationType).to.equal('HasMany')
+  })
+
+  describe('attributes', () => {
+
+    let savedUser;
 
     beforeEach(() => {
       return User.create({
-        firstName: 'David',
-        lastName: 'Bowie',
-        email: 'starman@gmail.com',
-        username: 'ZiggyStardust'
+        firstName: 'Hubba',
+        lastName: 'Bubba',
+        address: '1234 Gum Lane',
+        city: 'Candyland',
+        state: 'Dreamworld',
+        zipcode: 12345,
+        email: 'sugar@gmail.com',
+        username: 'imbubblegum',
+        googleId: 'imagoogleid'
       }).then(user => {
         savedUser = user
       })
     })
 
-    it('has default value for isAdmin and isAuthUser', () => {
-      let mostlyNullUser = User.build({
-        firstName: 'Nullo'})
-      return mostlyNullUser.save()
-              .then(function(user) {
-                expect(user.isAuthUser).to.equal(false);
-                expect(user.isAdmin).to.equal(false);
-              })
-
+    it('has correct attributes', () => {
+      expect(savedUser.firstName).to.equal('Hubba');
+      expect(savedUser.lastName).to.equal('Bubba');
+      expect(savedUser.address).to.equal('1234 Gum Lane');
+      expect(savedUser.city).to.equal('Candyland');
+      expect(savedUser.state).to.equal('Dreamworld');
+      expect(savedUser.zipcode).to.equal(12345);
+      expect(savedUser.isAdmin).to.equal(false);
+      expect(savedUser.isAuthUser).to.equal(false);
+      expect(savedUser.email).to.equal('sugar@gmail.com');
+      expect(savedUser.username).to.equal('imbubblegum');
+      expect(savedUser.googleId).to.equal('imagoogleid');
     })
 
-    it('must have unique email address', () => {
-      let nonUniqueUser = User.build({
-        firstName: 'Zavid',
-        lastName: 'Zowie',
-        email: 'starman@gmail.com',
-        username: 'ZiggyZtardust'})
+    it('has a default value for is admin and is authorized user', () => {
+      expect(savedUser.isAdmin).to.equal(false);
+      expect(savedUser.isAuthUser).to.equal(false);
+    }
+    )
 
-      return nonUniqueUser.save()
-              .then(function(){
-                throw new Error('validation fails when email is not unique');
-              },
-              function(result){
-                expect(result).to.be.an.instanceOf(Error);
-              })
-      });
-
-    it('must have unique username', () => {
-      let nonUniqueUser = User.build({
-        firstName: 'Zavid',
-        lastName: 'Zowie',
-        email: 'ztarman@gmail.com',
-        username: 'ZiggyStardust'})
-
-      return nonUniqueUser.save()
-              .then(function(){
-                throw new Error('validation fails when username is not unique');
-              },
-              function(result){
-                expect(result).to.be.an.instanceOf(Error);
-              })
-      });
-    })
-
-  describe('instanceMethods', () => {
-    describe('correctPassword', () => {
-      let cody
-
-      beforeEach(() => {
-        return User.create({
-          email: 'cody@puppybook.com',
-          password: 'bones'
+    it('has an email', () => {
+      savedUser.email = 'imNotAnEmail';
+      return savedUser.validate()
+        .then(() => {
+          throw new Error('validation fails when email is not an email');
+        },
+        (result) => {
+          expect(result).to.be.an.instanceOf(Error);
         })
-          .then(user => {
-            cody = user
-          })
+    })
+
+
+    it('has a unique email', () => {
+
+      Promise.all([
+        User.create({
+          firstName: 'Sugar',
+          lastName: 'Drops',
+          email: 'sugardrops@gmail.com'
+        }),
+        User.create({
+          firstName: 'Chocolate',
+          lastName: 'Chips',
+          email: 'sugardrops@gmail.com'
+        })
+      ]).catch((err) => {
+        expect(err).to.be.an.instanceOf(Error);
       })
 
-      xit('returns true if the password is correct', () => {
-        expect(cody.correctPassword('bones')).to.be.equal(true)
+    })
+
+    it('has a unique username', () => {
+
+      Promise.all([
+        User.create({
+          firstName: 'Sugar',
+          lastName: 'Drops',
+          username: 'sugardrops'
+        }),
+        User.create({
+          firstName: 'Chocolate',
+          lastName: 'Chips',
+          username: 'sugardrops'
+        })
+      ]).catch((err) => {
+        expect(err).to.be.an.instanceOf(Error);
       })
 
-      xit('returns false if the password is incorrect', () => {
-        expect(cody.correctPassword('bonez')).to.be.equal(false)
-      })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
-}) // end describe('User model')*/
+
+    })
+  })
+})
