@@ -58,9 +58,14 @@ export const fetchSingleUser = (id) =>
       .catch(err => console.error('Could not fetch user', err))
 
 export const updateUserProfile = (id, user) => dispatch => {
-  axios.put(`/api/${id}`, user)
+  axios.put(`/api/users/${id}`, user)
     .then(res => dispatch(updateUser(res.data)))
     .catch(err => console.error(`Could not update ${user}!`, err));
+}
+export const createUserProfile = userInfo => dispatch => {
+  axios.post(`api/users/new`, userInfo)
+    .then(res => dispatch(getUser(res.data)))
+    .catch(err => console.error(`Could not create user!`, err));
 }
 
 /**

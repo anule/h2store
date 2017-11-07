@@ -2,12 +2,11 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { processCartThunk } from '../store/cart';
 import history from '../history';
 import ProfileUpdate from './ProfileUpdate';
 
 
-class Checkout extends Component {
+class CheckoutGuest extends Component {
   constructor(){
     super()
     this.state = ({showProfileFormYadda: false});
@@ -68,4 +67,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutGuest);

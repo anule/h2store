@@ -15,8 +15,8 @@ class Cart extends Component {
   componentDidMount(){
     this.props.user.id
     ? this.props.cart.transactionId
-        ? this.props.getCartLoggedIn()
-        : this.props.getCartLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
+        ? this.props.getCartLoggedIn({transactionId: 0, products: []})
+        : this.props.getCartLoggedIn(JSON.parse(sessionStorage.getItem('cart')) || {transactionId: 0, products: []})
     : this.props.getCartNotLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
   }
 
@@ -26,8 +26,10 @@ class Cart extends Component {
     : this.props.emptyCartNotLoggedIn(transactionId)
   }
 
-  componentDidUpdate(){
-    sessionStorage.setItem('cart', JSON.stringify(this.props.cart));
+  componentWillReceiveProps(nextProps){
+    if (!this.props.user.id) {
+      sessionStorage.setItem('cart', JSON.stringify(nextProps.cart));
+    }
   }
 
   render(){
@@ -51,7 +53,13 @@ class Cart extends Component {
         <tr><td>Total</td><td /><td /><td /><td>${numToDollarsCents(total)}</td></tr>
         </tbody></table>
         <button onClick={() => this.clearCart(this.props.cart.transactionId)}>Delete Cart</button>
-        <button><NavLink to={'/checkout'}>Checkout</NavLink></button>
+        <br />
+        {console.log(this.props.cart.products)}
+        {this.props.cart.products.length
+        ? this.props.user.id
+            ? <button><NavLink to={'/checkout'}>Checkout</NavLink></button>
+            : <button><NavLink to={'/checkoutguest'}>Checkout</NavLink></button>
+        : 'Add items to your cart to checkout'}
         <hr />
       </div>
     )

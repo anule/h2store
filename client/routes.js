@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, Homepage, Footer,
   AllProducts, SingleCategory, SingleProduct, Cart,
-  SingleProductReviews, WriteReview, ProfileUpdate, Checkout, OrderHistory} from './components'
+  SingleProductReviews, WriteReview, ProfileUpdate, Checkout, OrderHistory, CheckoutGuest} from './components'
 import {me, getCart} from './store'
 
 /**
@@ -42,6 +42,7 @@ class Routes extends Component {
               <Route path="/signup" component={Signup} />
               <Route path="/cart" component={Cart} />
               <Route path="/checkout" component={Checkout} />
+              <Route path="/checkoutguest" component={CheckoutGuest} />
               {
                 isLoggedIn &&
                 <Switch>

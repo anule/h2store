@@ -16,7 +16,6 @@ class SingleProduct extends Component {
   componentDidMount(){
     const {id} = this.props.match.params;
     this.props.getProduct(id);
-
     if (this.props.user.id) {
       this.setState({reviewVisible: true})
     }
@@ -35,8 +34,14 @@ class SingleProduct extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if (!this.props.user.id) {
+      sessionStorage.setItem('cart', JSON.stringify(nextProps.cart));
+    }
+  }
+
   render(){
-    sessionStorage.setItem('cart', JSON.stringify(this.props.cart));
+
     console.log('session storage', sessionStorage.getItem('cart'))
     const {selectedProduct} = this.props.product;
     // Come back to similar products section

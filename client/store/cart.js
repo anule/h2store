@@ -39,7 +39,7 @@ dispatch =>
         }
       return cartInDB[1]
       ? {transactionId: cartInDB[0].id,
-        products: cart.products}
+        products: cart.products || []}
       : {transactionId: cartInDB[0].id, products:
         cartInDB[0].products.map(product => {
           return {
@@ -56,16 +56,6 @@ dispatch =>
   })
     .then(res => dispatch(getCart(res)))
     .catch(err => console.log(err));
-
-<<<<<<< HEAD
-export const processCartThunk = transactionId =>
-  dispatch =>
-    axios.put('/api/cart/checkout', {transactionId})
-      .then(() => dispatch(emptyCart()))
-      .catch(err => console.log(err));
-=======
-
->>>>>>> master
 
 export const deleteFromCartThunk = (productId, transactionId) =>
   dispatch =>
@@ -85,13 +75,19 @@ export const updateQuantityInCartThunk = (productId, transactionId, quantity) =>
         .then(() => dispatch(updateQuantityInCart(productId, quantity)))
         .catch(err => console.log(err))
 
+export const processCartThunk = transactionId =>
+    dispatch =>
+      axios.put('/api/cart/checkout', {transactionId})
+        .then(() => dispatch(emptyCart()))
+        .catch(err => console.log(err));
+
 /**
  * REDUCER
  */
 export default function (state = { transactionId: 0, products: [] }, action) {
   switch (action.type) {
     case GET_CART:
-      return { ...state, transactionId: action.cart.transactionId, products: action.cart.products }
+      return { ...state, transactionId: action.cart ? action.cart.transactionId : 0, products: action.cart ? action.cart.products : []}
     case ADD_TO_CART:
       return { ...state, products: state.products.concat(action.product) }
     case DELETE_FROM_CART:
