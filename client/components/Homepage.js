@@ -10,7 +10,8 @@ const Homepage = () => {
         "images/carousel/french-waterfall.jpg",
         "images/carousel/lake-victoria.jpg",
         "images/carousel/zambian-kids-clean-water.jpg",
-        "images/carousel/diving-penguins.jpg"]} />
+        "images/carousel/diving-penguins.jpg",
+        "images/carousel/justin-trudeau-crying.png"]} />
 
       <section id="mission">
         <h2>Our Mission</h2>

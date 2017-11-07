@@ -57,39 +57,28 @@ class SingleProduct extends Component {
             <h3>${selectedProduct.price}</h3>
             <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
             <button type="button">See Similar Products</button>
-            <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
-            <h3>Product Reviews:</h3>
-            <ul>
-              {selectedProduct.reviews && `Average rating = ${
-                parseFloat(selectedProduct.reviews.reduce(function (sum, value) {
-                  return sum + Number(value.stars)
-                }, 0) / selectedProduct.reviews.length).toFixed(1)} stars`}
-              {
-                selectedProduct.reviews && (selectedProduct.reviews.slice(0, 2).map(review => (
-                  <li key={review.id}><span>{review.title}&nbsp;&nbsp;&nbsp;{review.date}</span>
-                    <p>{review.stars}</p>
-                    <p>{review.message}</p>
-                  </li>
-                )))
-              }
-            </ul>
-            <Link to={`/products/${selectedProduct.id}/reviews`}><button>Read All Reviews</button></Link>
-            {
-              this.state.reviewVisible ?
-                <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
-                : <button disabled>Write a Review</button>
-            }
+            <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}><b>Back to Category</b></NavLink></h5>
           </section>
         }
-        <section className="reviews-pane">
-          <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
+        <section id="reviews-pane">
+          <NavLink to={`/products/${selectedProduct.id}/reviews`}><h3>Product Reviews:</h3></NavLink>
+          <p>{selectedProduct.reviews && `Average rating = ${
+            parseFloat(selectedProduct.reviews.reduce(function (sum, value) {
+              return sum + Number(value.stars)
+            }, 0) / selectedProduct.reviews.length).toFixed(1)} stars`}</p>
           {
             selectedProduct.reviews && (selectedProduct.reviews.slice(0, 2).map(review => (
-              <span key={review.id}><span>{review.title}&nbsp;&nbsp;&nbsp;{review.date}</span>
+              <div key={review.id} ><span>{review.title}&nbsp;&nbsp;&nbsp;{review.date}</span>
                 <p>{review.stars}</p>
                 <p>{review.message}</p>
-              </span>
+              </div>
             )))
+          }
+          <Link to={`/products/${selectedProduct.id}/reviews`}><button>Read All Reviews</button></Link>
+          {
+            this.state.reviewVisible ?
+              <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
+              : <button disabled>Write a Review</button>
           }
         </section>
       </div>
