@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-import { emptyCart } from './cart';
 
 /**
  * ACTION TYPES
@@ -33,20 +32,19 @@ export const me = () =>
 
 export const auth = (email, password, method) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
+    axios.post(`/auth/${method}`, {email, password })
       .then(res => {
         dispatch(getUser(res.data))
         history.push('/home')
       })
       .catch(error =>
-        dispatch(getUser({ error })))
+        dispatch(getUser({error})))
 
 export const logout = () =>
   dispatch =>
     axios.post('/auth/logout')
       .then(_ => {
         dispatch(removeUser())
-        dispatch(emptyCart());
         history.push('/login')
       })
       .catch(err => console.log(err))
@@ -77,8 +75,6 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
-    case UPDATE_PROFILE:
-      return { ...state, ...action.user }
     default:
       return state
   }

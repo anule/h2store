@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import { NavLink } from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email, id} = props
+  const {email} = props
 
   return (
     <div>
@@ -29,7 +28,6 @@ export const UserHome = (props) => {
  */
 const mapState = (state) => {
   return {
-    id: state.user.id,
     email: state.user.email
   }
 }

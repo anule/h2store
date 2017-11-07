@@ -79,11 +79,9 @@ const mapStateToProps = ({ user, cart }) => ({ user, cart });
 const mapDispatchToProps = dispatch => ({
   removeItemFromCartLoggedIn: (productId, transactionId) => {
     dispatch(deleteFromCartThunk(productId, transactionId));
-    console.log('removeItemFromCartLoggedIn')
   },
   removeItemFromCartNotLoggedIn: (productId) => {
     dispatch(deleteFromCart(productId));
-    console.log('removeItemFromCartNotLoggedIn')
   },
   updateQuantityInCartLoggedIn: (productId, transactionId, quantity) => {
     dispatch(updateQuantityInCartThunk(productId, transactionId, quantity))

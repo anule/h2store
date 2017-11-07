@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Router } from 'react-router'
-import { Route, Switch } from 'react-router-dom'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Router} from 'react-router'
+import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, Homepage, Footer,
@@ -13,16 +13,16 @@ import {me, getCart} from './store'
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadInitialData()
-    if (!this.props.isLoggedIn) {
-      console.log(JSON.parse(sessionStorage.getItem('cart')))
-      getCart(JSON.parse(sessionStorage.getItem('cart')))
+    if (!this.props.isLoggedIn && localStorage.getItem('cart')) {
+      this.props.loadCartFromLocalStorage(JSON.parse(localStorage.getItem('cart')));
     }
+
   }
 
-  render() {
-    const { isLoggedIn } = this.props
+  render () {
+    const {isLoggedIn} = this.props
 
     return (
       <Router history={history}>
@@ -45,17 +45,17 @@ class Routes extends Component {
               <Route path="/checkoutguest" component={CheckoutGuest} />
               {
                 isLoggedIn &&
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
-                </Switch>
+                  <Switch>
+                    {/* Routes placed here are only available after logging in */}
+                    <Route path="/home" component={UserHome} />
+                  </Switch>
               }
               {/* Displays our Login component as a fallback */}
               <Route component={Login} />
             </Switch>
           </Main>
-          <Footer />
-        </div>
+        <Footer />
+      </div>
       </Router>
     )
   }
@@ -68,15 +68,17 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-    cart: state.cart
+    isLoggedIn: !!state.user.id
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData() {
-      dispatch(me());
+    loadInitialData () {
+      dispatch(me())
+    },
+    loadCartFromLocalStorage (cartInfo) {
+      dispatch(getCart(cartInfo))
     }
   }
 }

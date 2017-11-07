@@ -15,9 +15,9 @@ const Main = (props) => {
 
   return (
     <div>
-      <nav className="nav-bar flex">
+      <nav className="container">
         <img className="logo" src="/h2storeLogo.jpeg" alt="h2Store" />
-        <div className="flex">
+        <div className="container">
           <Link to="/">Home</Link>
           <Link to="/about">About Us</Link>
           <Link to="/products">Products</Link>
@@ -25,19 +25,18 @@ const Main = (props) => {
         </div>
         {
           isLoggedIn
-            ? <span className="flex">
+            ? <div className="container" id="login-signup">
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <a href="#" onClick={handleClick}>Logout</a>
-            </span>
-            : <span className="flex">
+            </div>
+            : <div id="login-signup">
               {/* The navbar will show these links before you log in */}
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
-            </span>
+            </div>
         }
       </nav>
-      <hr />
       {children}
     </div>
   )
