@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { getCartThunk, getCart, emptyCartThunk, emptyCart } from '../store/cart';
 import ProductInCart from './ProductInCart';
+import { NavLink } from 'react-router-dom';
 
 class Cart extends Component {
   constructor(){
@@ -50,6 +51,7 @@ class Cart extends Component {
         <tr><td>Total</td><td /><td /><td /><td>${numToDollarsCents(total)}</td></tr>
         </tbody></table>
         <button onClick={() => this.clearCart(this.props.cart.transactionId)}>Delete Cart</button>
+        <button><NavLink to={'/checkout'}>Checkout</NavLink></button>
         <hr />
       </div>
     )

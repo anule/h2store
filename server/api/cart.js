@@ -29,3 +29,14 @@ router.post('/', (req, res, next) => {
       .then(() => res.sendStatus(201))
       .catch(next);
 })
+
+router.put('/checkout', (req, res, next) => {
+  Transaction.update(
+      {status: 'Ordered'},
+      {where: {
+        id: req.body.transactionId,
+      }
+    })
+    .then(() => res.sendStatus(201))
+    .catch(next)
+})

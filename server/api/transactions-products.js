@@ -15,7 +15,6 @@ router.put('/', (req, res, next) => {
 });
 
 router.put('/update', (req, res, next) => {
-  console.log(req.body)
   TransactionsProducts.update(
     {numOrdered: req.body.quantity},
     {where: {

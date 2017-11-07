@@ -58,6 +58,10 @@ class SingleProduct extends Component {
             : null}
             <br />
             <button type="button">See Similar Products</button>
+            <br />
+            {this.props.user.id
+            ? <button><NavLink to={`/products/${selectedProduct.id}/review`}>Write a review! </NavLink></button>
+            : null}
             <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
             <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
             <ul>

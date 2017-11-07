@@ -51,6 +51,12 @@ dispatch =>
     .then(res => dispatch(getCart(res)))
     .catch(err => console.log(err));
 
+export const processCartThunk = transactionId =>
+  dispatch =>
+    axios.put('/api/cart/checkout', {transactionId})
+      .then(() => dispatch(emptyCart()))
+      .catch(err => console.log(err));
+
 export const deleteFromCartThunk = (productId, transactionId) =>
   dispatch =>
     axios.put('/api/transactions-products', { transactionId, productId })

@@ -10,7 +10,6 @@ class WriteReview extends Component {
       redirect: false,
       submitVisible: false
     }
-
   }
 
   componentDidMount(){
