@@ -110,7 +110,10 @@ class ProfileUpdate extends Component {
             }
           </div> <br />
           <div>
-            <button type="submit">Update Profile</button>
+            {this.props.user.id
+            ? <button type="submit">Update Profile</button>
+            : <button type="submit">Submit Information</button>}
+
           </div>
         </form>
       </div>

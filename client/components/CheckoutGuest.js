@@ -50,8 +50,9 @@ class CheckoutGuest extends Component {
         </table>
         Total: ${numToDollarsCents(total)}
         <br />
+        <br />
         {showProfileFormYadda
-        ? <ProfileUpdate />
+        ? <span> Please complete this order form <br /> <ProfileUpdate /> </span>
         : <button onClick={this.handleClick}>Process order</button> }
         <hr />
       </div>
