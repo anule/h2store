@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import history from '../history';
 import ProfileUpdate from './ProfileUpdate';
-
+import { processCartGuestThunk } from '../store/cart';
 
 class CheckoutGuest extends Component {
   constructor(){
@@ -14,11 +14,11 @@ class CheckoutGuest extends Component {
   }
 
   handleClick(){
-    if (this.props.user.id) {
-      sessionStorage.clear();
-    }
-    this.props.processCartLoggedIn(this.props.cart.transactionId);
+    const { id } = this.props.user;
+    const { products } = this.props.cart;
+    this.props.processCartNotLoggedIn(id, products);
     history.push('/');
+    sessionStorage.clear()
   }
 
   render(){
@@ -30,7 +30,7 @@ class CheckoutGuest extends Component {
     const numToDollarsCents = num => (parseFloat(num).toFixed(2))
     return (
       <div>
-        <p>Your Order #: {this.props.cart.transactionId}</p>
+        <p>Your Order</p>
         <table>
           <tbody>
           <tr>
@@ -61,9 +61,9 @@ class CheckoutGuest extends Component {
 
 const mapStateToProps = ({ user, cart }) => ({ user, cart });
 const mapDispatchToProps = dispatch => ({
-  processCartLoggedIn: transactionId => {
-    dispatch(processCartThunk(transactionId));
-    console.log('processCartLoggedIn')
+  processCartNotLoggedIn: (id, products) => {
+    dispatch(processCartGuestThunk(id, products));
+    console.log('processCartNotLoggedIn')
   }
 })
 

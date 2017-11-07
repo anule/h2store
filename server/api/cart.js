@@ -40,3 +40,18 @@ router.put('/checkout', (req, res, next) => {
     .then(() => res.sendStatus(201))
     .catch(next)
 })
+
+router.put('/checkoutguest', (req, res, next) => {
+  console.log(req.body);
+  Transaction.create({
+    status: 'Ordered',
+    userId: req.body.id
+  }, {returning: true})
+    .then(transaction => req.body.products.forEach(product =>
+      TransactionsProducts.create(
+        {transactionId: transaction.id,
+         productId: product.id,
+         numOrdered: product.numOrdered
+        }))).then(() => res.sendStatus(201))
+      .catch(next);
+})

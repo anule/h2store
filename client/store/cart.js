@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { removeUser } from './user';
 
 /**
  * ACTION TYPES
@@ -79,6 +80,13 @@ export const processCartThunk = transactionId =>
     dispatch =>
       axios.put('/api/cart/checkout', {transactionId})
         .then(() => dispatch(emptyCart()))
+        .catch(err => console.log(err));
+
+export const processCartGuestThunk = (id, products) =>
+    dispatch =>
+      axios.put('/api/cart/checkoutguest', {id, products})
+        .then(() => dispatch(emptyCart()))
+        .then(() => dispatch(removeUser()))
         .catch(err => console.log(err));
 
 /**

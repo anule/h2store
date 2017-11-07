@@ -56,7 +56,7 @@ class Cart extends Component {
         <br />
         {console.log(this.props.cart.products)}
         {this.props.cart.products.length
-        ? this.props.user.id
+        ? this.props.user.id && this.props.user.isAuthUser
             ? <button><NavLink to={'/checkout'}>Checkout</NavLink></button>
             : <button><NavLink to={'/checkoutguest'}>Checkout</NavLink></button>
         : 'Add items to your cart to checkout'}
