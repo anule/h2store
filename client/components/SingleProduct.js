@@ -9,13 +9,17 @@ import SingleProductReviews from './SingleProductReviews';
 class SingleProduct extends Component {
   constructor(props){
     super(props);
-    this.state = {alreadyInCartWarning: false}
+    this.state = {alreadyInCartWarning: false, reviewVisible: false}
     this.handleAddClick = this.handleAddClick.bind(this);
   }
 
   componentDidMount(){
     const {id} = this.props.match.params;
     this.props.getProduct(id);
+
+    if (this.props.user.id) {
+      this.setState({reviewVisible: true})
+    }
   }
 
   handleAddClick() {
@@ -74,7 +78,11 @@ class SingleProduct extends Component {
               }
             </ul>
             <Link to={`/products/${selectedProduct.id}/reviews`}><button>Read All Reviews</button></Link>
-            <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
+            {
+              this.state.reviewVisible ?
+              <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
+                : <button disabled>Write a Review</button>
+            }
           </div>
         }
       <hr />

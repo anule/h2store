@@ -20,13 +20,7 @@ class WriteReview extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
 
-    if(this.props.userId) {
-      this.setState({submitVisible: true})
-    }
-  }
-
-  componentWillReceiveProps(nextProps){
-    if (this.props.userId !== nextProps.userId && nextProps.userId) {
+    if (this.props.userId) {
       this.setState({submitVisible: true})
     }
   }
@@ -44,6 +38,7 @@ class WriteReview extends Component {
       // this.setState({allFieldsPopulated: true})
       this.props.handleSubmit(review, evt)
       this.setState({redirect: true})
+      // this.props.review = ''
     }
   }
 
