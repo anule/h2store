@@ -20,31 +20,48 @@ const addToCart = product => ({type: ADD_TO_CART, product})
  * THUNK CREATORS
  */
 
-export const addToCartThunk = productId =>
-  dispatch =>
-    axios.get(`/api/products/${productId}`)
-      .then(res => ({
+export const addToCartThunk = product =>
+dispatch =>
+  axios.post('/api/cart', product)
+    .then(dispatch(addToCart(product)))
+    .catch(err => console.log(err));
 
-      }))
-
-export const fetchCart = () =>
-  dispatch =>
-    axios.get('/api/cart')
-      .then(res =>  ({transactionId: res.data.id, products:
-          res.data.products.map(product => { return {
+export const getCartThunk = cart =>
+dispatch =>
+  axios.get('/api/cart')
+    .then(res => res.data)
+    .then(cartInDB => {
+      if (cart.products && !cartInDB[1].products) {
+          cart.products.forEach(product =>
+            axios.post('/api/cart', product))
+        }
+      return cartInDB[1]
+      ? {transactionId: cartInDB[0].id,
+        products: cart.products}
+      : {transactionId: cartInDB[0].id, products:
+        cartInDB[0].products.map(product => {
+          return {
             name: product.name,
             id: product.id,
             price: product.price,
             image: product.image,
-            numInStock: product.numInStock, numOrdered: product['transactions-products'].numOrdered}})}))
-      .then(res => dispatch(getCart(res)))
-      .catch(err => console.log(err))
+            numInStock: product.numInStock,
+            numOrdered: product['transactions-products'].numOrdered
+          };
+        }
+      )
+  }
+  })
+    .then(res => dispatch(getCart(res)))
+    .catch(err => console.log(err));
 
-export const deleteItemFromCart = (productId, transactionId) =>
-    dispatch =>
-      axios.put('/api/transactions-products', { transactionId, productId})
-          .then(() => dispatch(deleteFromCart(productId)))
-          .catch(err => console.log(err));
+
+
+export const deleteFromCartThunk = (productId, transactionId) =>
+  dispatch =>
+    axios.put('/api/transactions-products', { transactionId, productId })
+      .then(() => dispatch(deleteFromCart(productId)))
+      .catch(err => console.log(err));
 
 export const emptyCartThunk = transactionId =>
     dispatch =>
