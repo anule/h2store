@@ -11,10 +11,10 @@ const ADD_TO_CART = 'ADD_TO_CART'
 /**
  * ACTION CREATORS
  */
-const getCart = cart => ({type: GET_CART, cart})
-const deleteFromCart = productId => ({type: DELETE_FROM_CART, productId})
-const emptyCart = () => ({type: EMPTY_CART})
-const addToCart = product => ({type: ADD_TO_CART, product})
+export const getCart = cart => ({type: GET_CART, cart})
+export const deleteItemFromCart = productId => ({type: DELETE_FROM_CART, productId})
+export const emptyCart = () => ({type: EMPTY_CART})
+export const addToCart = product => ({type: ADD_TO_CART, product})
 
 /**
  * THUNK CREATORS

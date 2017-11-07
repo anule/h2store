@@ -29,6 +29,7 @@
     "express-session": "^1.15.1",
     "history": "^4.6.3",
     "morgan": "^1.8.1",
+    "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
