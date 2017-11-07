@@ -36,8 +36,8 @@ class SingleProduct extends Component {
   }
 
   render(){
-    sessionStorage.setItem('cart', JSON.stringify(this.props.cart));
-    console.log('session storage', sessionStorage.getItem('cart'))
+    localStorage.setItem('cart', JSON.stringify(this.props.cart));
+    console.log('session storage', localStorage.getItem('cart'))
     const {selectedProduct} = this.props.product;
     // Come back to similar products section
     return (

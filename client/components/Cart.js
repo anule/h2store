@@ -15,8 +15,8 @@ class Cart extends Component {
     this.props.user.id
     ? this.props.cart.transactionId
         ? this.props.getCartLoggedIn()
-        : this.props.getCartLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
-    : this.props.getCartNotLoggedIn(JSON.parse(sessionStorage.getItem('cart')))
+        : this.props.getCartLoggedIn(JSON.parse(localStorage.getItem('cart')))
+    : this.props.getCartNotLoggedIn(JSON.parse(localStorage.getItem('cart')))
   }
 
   clearCart(transactionId){
@@ -26,7 +26,7 @@ class Cart extends Component {
   }
 
   componentDidUpdate(){
-    sessionStorage.setItem('cart', JSON.stringify(this.props.cart));
+    localStorage.setItem('cart', JSON.stringify(this.props.cart));
   }
 
   render(){
