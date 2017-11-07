@@ -31,12 +31,17 @@ export const addToCartThunk = product =>
 export const getCartThunk = cart =>
 dispatch =>
   axios.get('/api/cart')
-    .then(res => {
-      return res.data[1]
-      ? {transactionId: res.data[0].id,
+    .then(res => res.data)
+    .then(cartInDB => {
+      if (cart.products && !cartInDB[1].products) {
+          cart.products.forEach(product =>
+            axios.post('/api/cart', product))
+        }
+      return cartInDB[1]
+      ? {transactionId: cartInDB[0].id,
         products: cart.products}
-      : {transactionId: res.data[0].id, products:
-         res.data[0].products.map(product => {
+      : {transactionId: cartInDB[0].id, products:
+        cartInDB[0].products.map(product => {
           return {
             name: product.name,
             id: product.id,
@@ -46,16 +51,21 @@ dispatch =>
             numOrdered: product['transactions-products'].numOrdered
           };
         }
-        )
-    }})
+      )
+  }
+  })
     .then(res => dispatch(getCart(res)))
     .catch(err => console.log(err));
 
+<<<<<<< HEAD
 export const processCartThunk = transactionId =>
   dispatch =>
     axios.put('/api/cart/checkout', {transactionId})
       .then(() => dispatch(emptyCart()))
       .catch(err => console.log(err));
+=======
+
+>>>>>>> master
 
 export const deleteFromCartThunk = (productId, transactionId) =>
   dispatch =>
