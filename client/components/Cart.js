@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, deleteItemFromCart, emptyCartThunk } from '../store/cart';
+import { fetchCart, deleteItemFromCart, emptyCartThunk, getCart } from '../store/cart';
 
 class Cart extends Component {
   constructor(){
@@ -33,7 +33,6 @@ class Cart extends Component {
 
   render(){
     let total = 0;
-    console.log(this.props)
     return (
       <div>
         <table>
@@ -73,6 +72,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearCart: (transactionId) => {
     dispatch(emptyCartThunk(transactionId))
+  },
+  getCartNotLoggedIn: (cartInfo) => {
+    dispatch(getCart(cartInfo));
   }
 })
 
