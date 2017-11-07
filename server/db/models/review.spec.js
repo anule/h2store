@@ -1,11 +1,19 @@
 const { expect } = require('chai')
 const db = require('../index')
 const Review = db.model('review');
+// const User = db.model('user');
 
 
 describe('Review model', () => {
   beforeEach(() => {
     return db.sync({ force: true })
+  })
+
+  it('belongs to a user and a product', () => {
+    expect(Review.associations).to.have.property('user')
+    expect(Review.associations).to.have.property('product')
+    expect(Review.associations.user.associationType).to.equal('BelongsTo')
+    expect(Review.associations.product.associationType).to.equal('BelongsTo')
   })
 
   describe('attributes', () => {

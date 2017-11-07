@@ -16,6 +16,9 @@ export const UserHome = (props) => {
         <NavLink to={`/${id}/update`}>
           Update Profile
         </NavLink>
+        <NavLink to={`/users/${id}/orders`} >
+          <div>Order History</div>
+        </NavLink>
       </div>
     </div>
   )
