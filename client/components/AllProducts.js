@@ -5,17 +5,33 @@ import { fetchProducts } from '../store/product';
 import { Link } from 'react-router-dom';
 
 class AllProducts extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props){
+    super(props)
+    this.state = { filterValue: ''}
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.props.getProducts();
+  }
+
+  handleChange(evt){
+    const { value } = evt.target
+    this.setState({
+      filterValue: value
+    })
   }
 
   render() {
     return (
       <div className="container product-container">
+        <form style={{ marginTop: '20px' }}>
+          <input
+            onChange={this.handleChange}
+            value={this.state.filterValue}
+            placeholder="Search products"
+          />
+        </form>
         <CategoriesPane />
         <div id="products-pane">
           {this.props.product.allProducts.map(product => {
