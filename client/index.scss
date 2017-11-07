@@ -1,54 +1,232 @@
+@import 'reset';
+
+/* Styling guides */
+// div, li, ul {
+//   border: 1px solid black;
+// }
+
+/* General styling */
+
+/* latin */
+@font-face {
+  font-family: 'News Cycle';
+  font-style: normal;
+  font-weight: 400;
+  src: local('News Cycle'), local('NewsCycle'), url(https://fonts.gstatic.com/s/newscycle/v14/9Xe8dq6pQDsPyVH2D3tMQgzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'News Cycle';
+  font-style: normal;
+  font-weight: 700;
+  src: local('News Cycle Bold'), local('NewsCycle-Bold'), url(https://fonts.gstatic.com/s/newscycle/v14/G28Ny31cr5orMqEQy6ljt2aVI6zN22yiurzcBKxPjFE.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'Raleway Dots';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway Dots'), local('RalewayDots-Regular'), url(https://fonts.gstatic.com/s/ralewaydots/v5/lhLgmWCRcyz-QXo8LCzTfBampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+html {
+  min-height: 100%;
+}
 body {
+  font-family: 'News Cycle', sans-serif;
+  font-weight: 400;
+  font-style: regular;
+  // box-sizing: border-box;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  font-family: 'News Cycle', sans-serif;
+  font-weight: 400;
+  font-style: regular;  // color: black;
+}
+a:link {
+  color: #000000;
+}
+a:visited {
+  color:rgb(117, 119, 119)
+}
+a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.container {
+  display: flex;
+}
+
+/**** MAIN COMPONENT ****/
+/**** Header ****/
+nav {
+  background-color: #ffffff;
   font-family: 'Calibre Light', sans-serif;
-  box-sizing: border-box;
-
+  font-weight: 200;
+  font-style: normal;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 15px;
   a {
-    text-decoration: none;
-  }
-
-  label {
-    display: block;
-  }
-
-  nav a {
     display: inline-block;
-     margin: 1em;
-  }
-
-  form div {
     margin: 1em;
-    display: inline-block;
   }
+}
+.logo {
+  height: 2em;
+}
 
-  .nav-bar {
-    font-family: "Calibre Light";
-    font-weight: 200;
-    font-style: normal;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+/**** Auth-form ****/
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+label {
+  display: block;
+}
+
+/**** CATEGORIES PANE COMPONENT ****/
+.left-pane {
+  width: 20%;
+  font-size: 20px;
+  margin-right: 30px;
+  p {
+    margin: 5px 0;
   }
+  border-right: 0.5px solid #808080;
+  padding-left: 20px;
+}
+#em-categories {
+  font-weight: 700;
+  text-decoration: underline;
+}
 
-  .left-pane{
-    float: left;
-  }
 
-  .homepage {
-    align-items: center;
-  }
+/**** ALL PRODUCTS COMPONENT ****/
+/* All categories flexbox */
+.product-container {
+  width: 70%;
+  margin: auto;
+}
 
-  .footer {
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-  }
 
-  .flex {
-    display: flex;
-  }
+#products-pane {
+  @extend .container;
+  float: left;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 70%;
+}
 
-  .logo{
-    height: 2em;
+.product-preview {
+  display: block;
+  flex-direction: row;
+  border: 0.5px solid #bbbbbb;
+  margin: 5px 2.5px;
+  padding: 7px;
+}
+
+.product-preview img {
+  width: 125px;
+  height: 125px;
+  padding: 5px;
+}
+
+/**** SINGLE PRODUCT COMPONENT ****/
+.single-product-container {
+  @extend .product-container;
+}
+#single-product {
+  h1 {
+    text-align: left;
   }
 }
 
+
+/**** HOMEPAGE COMPONENT ****/
+.homepage {
+  align-items: center;
+  width: 100%;
+
+  section {
+    text-align: center;
+    padding: 50px 0;
+  }
+}
+
+/* Picture slideshow styling */
+#carousel {
+  max-width: 100%;
+}
+
+/* Mission statement */
+#mission {
+  text-align: center;
+  font-family: 'Open Sans Condensed';
+  font-style: italic;
+  font-weight: 300;
+  font-size: 20px;
+  background-color: hsla(174, 46%, 75%, 0.863);
+  h2 {
+    font-style: normal;
+  }
+}
+
+// #best-sellers {
+  //   text-align: center;
+  // }
+
+  /* h2store difference*/
+  #store-difference {
+    padding-top: 25px;
+    h1 {
+      margin-bottom: 25px;
+    }
+  }
+  #differences {
+    display: flex;
+    justify-content: space-around;
+    .difference {
+      text-align: center;
+      width: 30%;
+      border: 1.5px dotted #808080;
+    }
+  }
+
+
+
+  /**** FOOTER COMPONENT ****/
+
+  footer {
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    margin: auto;
+    padding: 50px 0;
+    border-top:0.5px;
+    font-family: 'News Cycle', sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    bottom: 0;
+    background-color: hsla(171, 10%, 74%, 0.753);
+  }
+
+  /**** MEDIA QUERIES ****/
+  /* tablet width */
+  @media only screen and (max-width: 1000px) {
+    @import 'tablet';
+  }
+
+  /* cellphone width */
+  @media only screen and (max-width: 420px) {
+    @import 'smartphone';
+  }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store/product';
-import { addToCartThunk, addToCart } from '../store/cart';
+import { addToCartThunk } from '../store/cart';
 import CategoriesPane from './CategoriesPane';
 import { Link, NavLink } from 'react-router-dom';
 import SingleProductReviews from './SingleProductReviews';
@@ -23,44 +23,28 @@ class SingleProduct extends Component {
   }
 
   handleAddClick() {
-    const {selectedProduct} = this.props.product;
-    selectedProduct.numOrdered = 1;
-    const alreadyInCart = this.props.cart.products.filter(product => product.id === selectedProduct.id)
-    if (alreadyInCart.length > 0) {
-      this.setState({alreadyInCartWarning: true})
-    } else {
-    this.props.user.id
-    ? this.props.addToCartLoggedIn(selectedProduct)
-    : this.props.addToCartNotLoggedIn(selectedProduct)
-    }
+    console.log(this.props.match.params.id);
   }
 
   render(){
     localStorage.setItem('cart', JSON.stringify(this.props.cart));
     console.log('session storage', localStorage.getItem('cart'))
+
     const {selectedProduct} = this.props.product;
     // Come back to similar products section
+    if (this.props.products){
+      const { allProducts } = this.props.products;
+    }
     return (
-      <div>
+      <div className="container single-product-container">
         <CategoriesPane />
         {
-          <div>
+          <section id="single-product">
             <h1>{selectedProduct.name}</h1>
             <img src={selectedProduct.image} alt="Product Image" width="275" height="250" />
             <h2>{selectedProduct.description}</h2>
             <h3>${selectedProduct.price}</h3>
-            {((selectedProduct.numInStock !== 0) && selectedProduct.visibilityToggle)
-              ? <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
-              : <h4>This product is not currently available - please check back later!</h4>}
-            <br />
-            {(selectedProduct.numInStock < 10 && selectedProduct.numInStock > 0)
-              ? `Only ${selectedProduct.numInStock} left - more coming!`
-              : null }
-            <br />
-            {this.state.alreadyInCartWarning
-            ? 'This item is already in your cart!'
-            : null}
-            <br />
+            <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
             <button type="button">See Similar Products</button>
             <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}>Back to Category </NavLink></h5>
             <h3>Product Reviews:</h3>
@@ -83,26 +67,31 @@ class SingleProduct extends Component {
               <Link to={`/products/${selectedProduct.id}/review`}><button>Write a Review</button></Link>
                 : <button disabled>Write a Review</button>
             }
-          </div>
+          </section>
         }
-      <hr />
+        <section className="reviews-pane">
+        <h3> <NavLink to={`/products/${selectedProduct.id}/reviews`}>Product Reviews:</NavLink></h3>
+        {
+          selectedProduct.reviews && (selectedProduct.reviews.slice(0, 2).map(review => (
+            <span key={review.id}><span>{review.title}&nbsp;&nbsp;&nbsp;{review.date}</span>
+            <p>{review.stars}</p>
+            <p>{review.message}</p>
+            </span>
+          )))
+        }
+        </section>
       </div>
     );
   }
 }
 
-const mapState = (state) => ({user: state.user, cart: state.cart, product: state.product});
+const mapState = (state) => ({product: state.product, products: state.products});
 const mapDispatch = dispatch => ({
   getProduct: (id) => {
     dispatch(fetchSingleProduct(id));
   },
-  addToCartLoggedIn: (product) => {
-    console.log('addToCartLoggedIn')
-    dispatch(addToCartThunk(product));
-  },
-  addToCartNotLoggedIn: (product) => {
-    console.log('addToCartNotLoggedIn');
-    dispatch(addToCart(product));
+  addToCart: (id) => {
+    dispatch(addToCartThunk(id));
   }
 });
 

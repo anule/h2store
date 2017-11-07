@@ -18,15 +18,4 @@ Transaction.addHook('beforeDestroy', (transaction) => {
   }).then(res => res.send('transaction products destroyed'));
 })
 
-// export const deleteNulls = id => {
-//   TransactionsProducts.findAll({
-//     where: {
-//       transactionId: id
-//     }
-//   }).then(
-//     res => console.log(res)
-//   )
-
-// }
-
 module.exports = Transaction;
