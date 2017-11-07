@@ -1,0 +1,17 @@
+.carousel {
+  width: 100vw;
+  height: 100vw;
+  overflow: hidden;
+}
+
+.carousel-item {
+  @extend .carousel;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.carousel-slider {
+  display: flex;
+  transition: transform 500ms;
+}

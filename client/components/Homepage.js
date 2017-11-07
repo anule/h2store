@@ -1,16 +1,16 @@
 import React from 'react';
 import BestSellers from './BestSellers';
+import Carousel from './Carousel';
 
 const Homepage = () => {
   return (
     <div className="homepage">
 
-      <section id="carousel">
-        <img className="carousel-image" src="images/carousel/colorado-waterfall.jpg" />
-        <img className="carousel-image hidden" src="images/carousel/lake-victoria.jpg" />
-        <img className="carousel-image hidden" src="images/carousel/zambian-kids-clean-water.jpg" />
-        <img className="carousel-image hidden" src="images/carousel/diving-penguins.jpg" />
-      </section>
+      <Carousel images={[
+        "images/carousel/french-waterfall.jpg",
+        "images/carousel/lake-victoria.jpg",
+        "images/carousel/zambian-kids-clean-water.jpg",
+        "images/carousel/diving-penguins.jpg"]} />
 
       <section id="mission">
         <h2>Our Mission</h2>
