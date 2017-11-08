@@ -16,7 +16,7 @@ class Checkout extends Component {
 
   handleClick(){
     if (this.props.user.id) {
-      sessionStorage.clear();
+      localStorage.clear();
     }
     this.props.processCartLoggedIn(this.props.cart.transactionId);
     history.push('/');

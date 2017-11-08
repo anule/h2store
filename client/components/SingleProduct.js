@@ -43,12 +43,8 @@ class SingleProduct extends Component {
 
   render(){
 
-    console.log('session storage', sessionStorage.getItem('cart'))
     const {selectedProduct} = this.props.product;
     // Come back to similar products section
-    if (this.props.products) {
-      const { allProducts } = this.props.products;
-    }
     return (
       <div className="container single-product-container">
         <CategoriesPane />

@@ -18,7 +18,7 @@ class CheckoutGuest extends Component {
     const { products } = this.props.cart;
     this.props.processCartNotLoggedIn(id, products);
     history.push('/');
-    sessionStorage.clear()
+    localStorage.clear()
   }
 
   render(){

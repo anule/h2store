@@ -8,6 +8,7 @@ const GET_CART = 'GET_CART';
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
 const EMPTY_CART = 'EMPTY_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const UPDATE_QUANTITY_IN_CART = 'UPDATE_QUANTITY_IN_CART'
 
 /**
  * ACTION CREATORS
@@ -16,7 +17,7 @@ export const getCart = cart => ({type: GET_CART, cart})
 export const deleteItemFromCart = productId => ({type: DELETE_FROM_CART, productId})
 export const emptyCart = () => ({type: EMPTY_CART})
 export const addToCart = product => ({type: ADD_TO_CART, product})
-
+export const updateQuantityInCart = (productId, quantity) => ({type: UPDATE_QUANTITY_IN_CART, productId, quantity})
 /**
  * THUNK CREATORS
  */
@@ -30,8 +31,9 @@ dispatch =>
 export const getCartThunk = cart =>
 dispatch =>
   axios.get('/api/cart')
-    .then(res => res.data)
+    .then(res => {console.log(res.data)})
     .then(cartInDB => {
+      console.log(cartInDB)
       if (cart.products && !cartInDB[1].products) {
           cart.products.forEach(product =>
             axios.post('/api/cart', product))
@@ -56,7 +58,7 @@ dispatch =>
     .then(res => dispatch(getCart(res)))
     .catch(err => console.log(err));
 
-export const deleteFromCartThunk = (productId, transactionId) =>
+export const deleteItemFromCartThunk = (productId, transactionId) =>
   dispatch =>
     axios.put('/api/transactions-products', { transactionId, productId })
       .then(() => dispatch(deleteItemFromCart(productId)))
@@ -68,7 +70,7 @@ export const emptyCartThunk = transactionId =>
       .then(() => dispatch(emptyCart()))
       .catch(err => console.log(err));
 
-export const updateQuantityInCart = ({productId, transactionId, quantity}) =>
+export const updateQuantityInCartThunk = (productId, transactionId, quantity) =>
   dispatch =>
       axios.put('api/transactions-products/update', { productId, transactionId, quantity})
         .then(() => dispatch(updateQuantityInCart(productId, quantity)))
@@ -98,6 +100,13 @@ export default function (state = {transactionId: 0, products: []}, action) {
       return {...state, products: state.products.concat(action.product)}
     case DELETE_FROM_CART:
       return {...state, products: state.products.filter(product => product.id !== action.productId)}
+    case UPDATE_QUANTITY_IN_CART:
+      return {...state, products: state.products.map(product => {
+          return product.id !== action.productId
+          ? product
+          : {...product, numOrdered: action.quantity}
+      }
+      )}
     case EMPTY_CART:
       return {transactionId: 0, products: []}
     default:
