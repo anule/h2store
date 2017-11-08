@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateUserProfile } from '../store/user'
+import { updateUserProfile, createUserProfile } from '../store/user'
 
 class ProfileUpdate extends Component {
 
   constructor(props) {
-
     super(props);
     this.state = {
       firstName: props.user.firstName,
@@ -14,7 +13,8 @@ class ProfileUpdate extends Component {
       city: props.user.city,
       state: props.user.state,
       zipcode: props.user.zipcode,
-      username: props.user.username
+      username: props.user.username,
+      email: props.user.email
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,17 +27,17 @@ class ProfileUpdate extends Component {
     const city = evt.target.form.city.value;
     const state = evt.target.form.state.value;
     const zipcode = evt.target.form.zipcode.value;
-    const username = evt.target.form.username.value;
-
-    this.setState({ firstName, lastName, address, city, state, zipcode, username })
-
+    const username = this.props.user.id ? evt.target.form.username.value : null
+    const email = this.props.user.id ? this.props.user.email : evt.target.form.email.value;
+    this.setState({ firstName, lastName, address, city, state, zipcode, username, email })
   }
 
   handleSubmit(evt) {
-
     evt.preventDefault();
-    this.props.updateUserFunc(this.props.user.id, this.state);
-    this.setState({ firstName: '', lastName: '', address: '', city: '', state: '', zipcode: '', username: '' })
+    this.props.user.id
+    ? this.props.updateUserFuncLoggedIn(this.props.user.id, this.state)
+    : this.props.createUserFuncNotLoggedIn(this.state)
+    this.setState({ firstName: '', lastName: '', address: '', city: '', state: '', zipcode: '', username: '', email: '' })
   }
 
   render() {
@@ -87,16 +87,33 @@ class ProfileUpdate extends Component {
               value={this.state.zipcode}
               onChange={this.handleChange}
             />
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
+
+            {(!this.props.user.id)
+            ? (<span>
+                <label>Email</label>
+                <input
+                    type="text"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+              </span>)
+            : <span>
+                <label>Username</label>
+                <input
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                />
+              </span>
+            }
           </div> <br />
           <div>
-            <button type="submit">Update Profile</button>
+            {this.props.user.id
+            ? <button type="submit">Update Profile</button>
+            : <button type="submit">Submit Information</button>}
+
           </div>
         </form>
       </div>
@@ -112,8 +129,11 @@ const mapStateToProps = (state) => {
 
 const mapStateToDispatch = (dispatch) => {
   return {
-    updateUserFunc: function (userId, userInfo) {
+    updateUserFuncLoggedIn: function (userId, userInfo) {
       dispatch(updateUserProfile(userId, userInfo))
+    },
+    createUserFuncNotLoggedIn: function(userInfo) {
+      dispatch(createUserProfile(userInfo))
     }
   }
 };

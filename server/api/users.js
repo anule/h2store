@@ -36,3 +36,9 @@ router.get('/:id/orders', (req, res, next) => {
     {res.json(user)})
   .catch(next)
 })
+
+router.post('/new', (req, res, next) => {
+  User.create(req.body, {returning: true})
+  .then(user => {res.json(user)})
+  .catch(next);
+})

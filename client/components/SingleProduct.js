@@ -16,7 +16,6 @@ class SingleProduct extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getProduct(id);
-
     if (this.props.user.id) {
       this.setState({ reviewVisible: true })
     }
@@ -36,16 +35,16 @@ class SingleProduct extends Component {
     }
   }
 
-
-  render() {
-    localStorage.setItem('cart', JSON.stringify(this.props.cart));
-    console.log('session storage', localStorage.getItem('cart'))
-
-    const { selectedProduct } = this.props.product;
-    // Come back to similar products section
-    if (this.props.products) {
-      const { allProducts } = this.props.products;
+  componentWillReceiveProps(nextProps){
+    if (!this.props.user.id) {
+      localStorage.setItem('cart', JSON.stringify(nextProps.cart));
     }
+  }
+
+  render(){
+
+    const {selectedProduct} = this.props.product;
+    // Come back to similar products section
     return (
       <div className="container single-product-container">
         <CategoriesPane />
@@ -57,7 +56,9 @@ class SingleProduct extends Component {
             <h3>${selectedProduct.price}</h3>
             <button type="button" onClick={this.handleAddClick}>Add to Cart</button>
             <button type="button">See Similar Products</button>
+
             <h5><NavLink to={`/categories/${selectedProduct.categoryId}`}><b>Back to Category</b></NavLink></h5>
+
           </section>
         }
         <section id="reviews-pane">

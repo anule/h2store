@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 
 class AllProducts extends Component {
   constructor(props) {
+
     super(props)
     this.state = { filterValue: '' }
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -15,7 +17,9 @@ class AllProducts extends Component {
     this.props.getProducts();
   }
 
+
   handleChange(evt) {
+
     const { value } = evt.target
     this.setState({
       filterValue: value
@@ -23,6 +27,7 @@ class AllProducts extends Component {
   }
 
   render() {
+    const filterProducts = this.props.product.allProducts.filter(product => product.name.toLowerCase().match(this.state.filterValue));
     return (
       <div className="container product-container">
         <div  className="left-pane">
@@ -36,7 +41,7 @@ class AllProducts extends Component {
           <CategoriesPane />
         </div>
         <div id="products-pane">
-          {this.props.product.allProducts.map(product => {
+          {filterProducts.map(product => {
             return (
               <span className="products" key={product.id}>
                 <Link to={`/products/${product.id}`}>
@@ -50,8 +55,7 @@ class AllProducts extends Component {
           })}
         </div>
       </div>
-
-    );
+    )
   }
 }
 

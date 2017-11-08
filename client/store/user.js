@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const UPDATE_PROFILE = 'UPDATE_PROFILE'
 
 /**
  * INITIAL STATE
@@ -15,8 +16,9 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
+const getUser = user => ({ type: GET_USER, user })
+export const removeUser = () => ({ type: REMOVE_USER })
+const updateUser = user => ({ type: UPDATE_PROFILE, user })
 
 /**
  * THUNK CREATORS
@@ -54,9 +56,14 @@ export const fetchSingleUser = (id) =>
       .catch(err => console.error('Could not fetch user', err))
 
 export const updateUserProfile = (id, user) => dispatch => {
-  axios.put(`/api/${id}`, user)
+  axios.put(`/api/users/${id}`, user)
     .then(res => dispatch(updateUser(res.data)))
     .catch(err => console.error(`Could not update ${user}!`, err));
+}
+export const createUserProfile = userInfo => dispatch => {
+  axios.post(`api/users/new`, userInfo)
+    .then(res => dispatch(getUser(res.data)))
+    .catch(err => console.error(`Could not create user!`, err));
 }
 
 /**
@@ -68,6 +75,8 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case UPDATE_PROFILE:
+      return  {...state, ...action.user}
     default:
       return state
   }

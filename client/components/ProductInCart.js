@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { deleteFromCartThunk, deleteFromCart, updateQuantityInCart, updateQuantityInCartThunk } from '../store/cart';
+import { deleteItemFromCartThunk, deleteItemFromCart, updateQuantityInCart, updateQuantityInCartThunk } from '../store/cart';
 import { NavLink } from 'react-router-dom';
 
 class ProductInCart extends Component {
@@ -78,10 +78,10 @@ class ProductInCart extends Component {
 const mapStateToProps = ({ user, cart }) => ({ user, cart });
 const mapDispatchToProps = dispatch => ({
   removeItemFromCartLoggedIn: (productId, transactionId) => {
-    dispatch(deleteFromCartThunk(productId, transactionId));
+    dispatch(deleteItemFromCartThunk(productId, transactionId));
   },
   removeItemFromCartNotLoggedIn: (productId) => {
-    dispatch(deleteFromCart(productId));
+    dispatch(deleteItemFromCart(productId));
   },
   updateQuantityInCartLoggedIn: (productId, transactionId, quantity) => {
     dispatch(updateQuantityInCartThunk(productId, transactionId, quantity))
