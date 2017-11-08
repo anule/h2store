@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, Homepage, Footer,
@@ -43,6 +43,7 @@ class Routes extends Component {
               <Route path="/cart" component={Cart} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/checkoutguest" component={CheckoutGuest} />
+              <Route path="/github" />
               {
                 isLoggedIn &&
                   <Switch>

@@ -13,3 +13,7 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+router.get('/github', (req, res) => {
+  res.redirect('http://github.com/anule/h2store');
+});
