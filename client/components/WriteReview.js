@@ -11,7 +11,6 @@ class WriteReview extends Component {
       submitVisible: false,
       allFieldsPopulated: false,
     }
-
   }
 
   componentDidMount(){
@@ -19,7 +18,6 @@ class WriteReview extends Component {
     this.props.getProduct(id)
     this.handleChange = this.handleChange.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
-
     if (this.props.userId) {
       this.setState({submitVisible: true})
     }
@@ -48,7 +46,6 @@ class WriteReview extends Component {
       review.productId = productId
       review.userId = userId
     }
-
     if (redirect) {
       return <Redirect to={`/products/${productId}/reviews`} />
     }

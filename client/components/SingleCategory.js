@@ -2,11 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CategoriesPane from './CategoriesPane';
 import { fetchSingleCategory } from '../store/category';
+import { NavLink } from 'react-router-dom'
 
 class SingleCategory extends Component {
-  constructor(props){
-    super(props)
-  }
 
   componentDidMount(){
     const { id } = this.props.match.params
@@ -32,7 +30,9 @@ class SingleCategory extends Component {
         }
         {selectedCategory.products
         ? selectedCategory.products.map(product => {
-          return <li key={product.id}>{product.name} <br />Price:{product.price}<br />{product.description}</li>
+          return (<li key={product.id}>
+          <NavLink to ={`/products/${product.id}/`}>
+          {product.name}</NavLink> <br />Price:{product.price}<br />{product.description}</li>)
         })
         : null }
         <hr />
