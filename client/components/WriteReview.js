@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { postReview, createReview, fetchSingleProduct } from '../store'
 import { Redirect } from 'react-router-dom'
+import history from '../history'
 
 class WriteReview extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      redirect: false,
       submitVisible: false,
       allFieldsPopulated: false,
     }
@@ -29,27 +29,24 @@ class WriteReview extends Component {
   }
 
   handleRedirect (review, evt) {
+    const { productId } = this.props
     if (!this.props.review.title || !this.props.review.stars || !this.props.review.message){
       evt.preventDefault()
       alert('Please populate all fields in the Review form.')
     } else {
       this.props.handleSubmit(review, evt)
-      this.setState({redirect: true})
+      history.push(`/products/${productId}/reviews`)
+
     }
   }
 
 
   render (){
     const {review, productId, product, userId} = this.props
-    const { redirect } = this.state
     if (productId && userId){
       review.productId = productId
       review.userId = userId
     }
-    if (redirect) {
-      return <Redirect to={`/products/${productId}/reviews`} />
-    }
-
     return (
       <div>
         <h3>{product.name}</h3>
@@ -78,13 +75,7 @@ class WriteReview extends Component {
               name="message"
               onChange={this.handleChange}
             />
-          {
-            this.state.allFieldsPopulated ?
-            null :
-            <div>
-              Please complete all fields before submitting.
-            </div>
-          }
+
           {
             this.state.submitVisible ?
             <button type="submit">
