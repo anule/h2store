@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 
 class AllProducts extends Component {
   constructor(props) {
-    super(props);
-    this.state = ({filterValue: ''})
+
+    super(props)
+    this.state = { filterValue: '' }
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -15,7 +17,9 @@ class AllProducts extends Component {
     this.props.getProducts();
   }
 
-  handleChange(evt){
+
+  handleChange(evt) {
+
     const { value } = evt.target
     this.setState({
       filterValue: value
@@ -25,21 +29,31 @@ class AllProducts extends Component {
   render() {
     const filterProducts = this.props.product.allProducts.filter(product => product.name.toLowerCase().match(this.state.filterValue));
     return (
-      <div>
-        <form style={{marginTop: '20px'}}>
-          <input
-            onChange={this.handleChange}
-            value={this.state.filterValue}
-            placeholder="Search products"
-          />
-        </form>
-        <ul className="products">
-        <CategoriesPane />
-        {filterProducts.map(product => {
-          return <li key={product.id}><Link to={`/products/${product.id}`}>{product.name}</Link></li>
-        })}
-        </ul>
-        <hr />
+      <div className="container product-container">
+        <div  className="left-pane">
+          <form style={{ marginTop: '20px' }}>
+            <input
+              onChange={this.handleChange}
+              value={this.state.filterValue}
+              placeholder="Search products"
+            />
+          </form>
+          <CategoriesPane />
+        </div>
+        <div id="products-pane">
+          {filterProducts.map(product => {
+            return (
+              <span className="products" key={product.id}>
+                <Link to={`/products/${product.id}`}>
+                  <div className="product-preview container">
+                    <img src={product.image} />
+                    <p>{product.name}</p>
+                    <p>Price: {`$ ${product.price}`}</p>
+                  </div>
+                </Link>
+              </span>);
+          })}
+        </div>
       </div>
     )
   }
