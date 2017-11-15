@@ -8,6 +8,8 @@ import product from './product';
 import review from './review';
 import cart from './cart'
 
+const fake = 'fake'
+
 const reducer = combineReducers({user, category, product, review, cart});
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
